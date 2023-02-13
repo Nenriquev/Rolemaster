@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path')
 const router = express.Router();
-const indexController = require('../controller/index.js')
+const filesController = require('../controller/filesController.js')
+const readController = require('../controller/readController.js')
 
 
 
@@ -24,7 +25,8 @@ const uploadMiddleware = (req, res, next) => {
 /* GET home page. */
 /* router.get('/api/ver', indexController.get)
 router.post('/api/create', indexController.post) */
-router.post('/api/upload',uploadMiddleware, indexController.fileAuth) 
+router.post('/api/upload',uploadMiddleware, filesController.fileAuth) 
+router.post('/api/read', readController.read) 
 
 
 

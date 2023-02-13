@@ -1,9 +1,6 @@
 import { useRef, useState } from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import './css/uploadFile.css'
+import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert} from '@mui/material'
 
 
 
@@ -26,6 +23,7 @@ function UploadFile() {
     var requestOptions = {
       method: 'POST',
       body: data,
+      redirect: 'follow'
     };
     
    const response = await fetch("/upload", requestOptions)
@@ -74,13 +72,12 @@ function UploadFile() {
     }
     setData(formdata)
   };
-
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="container">
+      
         <form className="formulario" onSubmit={addTask}>
-        <Box>
-        <FormControl sx={{width: '100%'}}>
+        <Box >
+        <FormControl className='box' sx={{width: '100%'}}>
           <InputLabel id="demo-simple-select-label">Hoja a cargar</InputLabel>
           <Select
             ref={category}
@@ -90,21 +87,19 @@ function UploadFile() {
             label="Hoja a cargar"
             onChange={handleChange}
           >
-            <MenuItem value={'criticos'}>Criticos</MenuItem>
+            <MenuItem value={'bonificadores'}>Bonificadores</MenuItem>
             <MenuItem value={'armas'}>Armas</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
           </Select>
         </FormControl>
       </Box>
-          <input type="file" onChange={handleFile} name="file" />
-          {status.error ? (
-            <h1 style={{ color: "red" }}>{status.error}</h1>
-          ) : (
-            <h1 style={{ color: "green" }}>{status.mensaje}</h1>
-          )}
-          <button type="submit">Submit</button>
+      <Button variant="contained" component="label">{file ? file.name : 'Seleccionar Archivo'}
+        <input hidden type="file" onChange={handleFile} name="file"/>
+      </Button>
+          {status.error ?  <Alert variant="filled" severity="error">{status.error}</Alert> : null}
+          {status.mensaje ? <Alert variant="filled" severity="success">{status.mensaje}</Alert>: null}
+          <Button type='submit' variant="contained" color="success">Cargar</Button>
         </form>
-      </header>
+  
     </div>
   );
 }
