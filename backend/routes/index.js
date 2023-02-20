@@ -27,6 +27,7 @@ const uploadMiddleware = (req, res, next) => {
 router.post('/api/create', indexController.post) */
 router.post('/api/upload',uploadMiddleware, filesController.fileAuth) 
 router.post('/api/read', readController.read) 
+router.post('/api/criticals', readController.getCriticals) 
 
 
 

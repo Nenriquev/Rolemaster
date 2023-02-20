@@ -11,3 +11,7 @@ form{
   display: flex;
   flex-direction: column;
 }
+
+.container-description{
+  width: 20%;
+}

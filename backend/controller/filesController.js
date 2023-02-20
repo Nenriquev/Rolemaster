@@ -1,5 +1,7 @@
 const Bonificadores = require('../database/models/Bonficadores') 
 const Armas = require('../database/models/Armas') 
+const Criticos = require('../database/models/Criticos') 
+const Pifias = require('../database/models/Pifias') 
 const path = require('path')
 const fs = require('fs')
 const XLSX = require("xlsx");
@@ -13,70 +15,157 @@ const sheetVerify = async (worksheet, category) => {
     return element.toLowerCase()
   });
 
+  const sheet = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+  const newSheet = transformKeys(sheet);
+
 
   switch (category) {
-    case 'bonificadores':
-      if(renameHeader[0] == 'tirada' && renameHeader[1] == 'bonificador'){
+    case "bonificadores":
+      if (renameHeader[0] == "tirada" && renameHeader[1] == "bonificador") {
+        let verify = verifyColumn(worksheet);
 
-        let verify = verifyColumn(worksheet)
-
-        if(!verify){
-          return {verify: false}
+        if (!verify) {
+          return { verify: false };
         }
-        const sheet = XLSX.utils.sheet_to_json(worksheet, {defval:""})
-        const newSheet = transformKeys(sheet)
 
         newSheet.forEach((data) => {
-          Bonificadores.updateOne({ "tirada": data.tirada }, data, { upsert: true }, (err) => {
-            if (err) {
-              return console.log(err)
+          Bonificadores.updateOne(
+            { tirada: data.tirada },
+            data,
+            { upsert: true },
+            (err) => {
+              if (err) {
+                return console.log(err);
+              }
             }
-          });
+          );
         });
 
-        return true
-
+        return true;
+      } else {
+        return false;
       }
-      else {
-        return false
-      }
-    case 'armas':
-      if(renameHeader[0] == 'arma' && renameHeader[1] == 'tirada'){
-
-        const sheet = XLSX.utils.sheet_to_json(worksheet, {defval:""})
-        const newSheet = transformKeys(sheet)
-        let obj = {}
+    case "armas":
+      if (renameHeader[0] == "arma" && renameHeader[1] == "tirada") {
+        const sheet = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+        const newSheet = transformKeys(sheet);
+        let obj = {};
 
         newSheet.forEach((element, value) => {
-          const array = [{'ta20':element.ta20}, {'ta19':element.ta19}, {'ta18':element.ta18}, {'ta17':element.ta17}, {'ta16':element.ta16}, {'ta15':element.ta15}, {'ta14':element.ta14}, {'ta13':element.ta13}, {'ta12':element.ta12}, {'ta11':element.ta11}, {'ta10':element.ta10}, {'ta9':element.ta9}, {'ta8':element.ta8}, {'ta7':element.ta7}, {'ta6':element.ta6}, {'ta5':element.ta5}, {'ta4':element.ta4}, {'ta3':element.ta3}, {'ta2':element.ta2}, {'ta1':element.ta1}]
-          obj[element.tirada] = array
-        })
+          const array = [
+            { ta20: element.ta20 },
+            { ta19: element.ta19 },
+            { ta18: element.ta18 },
+            { ta17: element.ta17 },
+            { ta16: element.ta16 },
+            { ta15: element.ta15 },
+            { ta14: element.ta14 },
+            { ta13: element.ta13 },
+            { ta12: element.ta12 },
+            { ta11: element.ta11 },
+            { ta10: element.ta10 },
+            { ta9: element.ta9 },
+            { ta8: element.ta8 },
+            { ta7: element.ta7 },
+            { ta6: element.ta6 },
+            { ta5: element.ta5 },
+            { ta4: element.ta4 },
+            { ta3: element.ta3 },
+            { ta2: element.ta2 },
+            { ta1: element.ta1 },
+          ];
+          obj[element.tirada] = array;
+          
+        });
 
+        const name = newSheet.find((element) => {
+          return element.arma;
+        });
 
-       const name = newSheet.find(element => {
-          return element.arma
-        })
+        const pifias = newSheet.flatMap((element) => element.pifia == '' ? [] : {pifia: element.pifia, tipo: element.tipodepifia});
 
         const newObj = {
           arma: name.arma,
-          tirada: obj
-        }
+          tirada: obj,
+          pifias: pifias
+        };
+       
+         const verifyIfExist = await Armas.exists({ arma: name.arma });
+        if (!verifyIfExist) {
+          await Armas.insertMany(newObj);
+        } else {
+          await Armas.deleteOne({ arma: name.arma });
+          await Armas.insertMany(newObj);
+        }  
+        return true;
+      } else {
+        return false;
+      }
 
-        const verifyIfExist =  await Armas.exists({arma: name.arma})
-        if(!verifyIfExist){
-          await Armas.insertMany(newObj) 
-        }
-        else{
-         await Armas.deleteOne({arma: name.arma})
-         await Armas.insertMany(newObj)
-        }
+    case "criticos":
+      const cutHeaders = headers.slice(4);
 
-  
-        return true
+      if (renameHeader[0] == "simbolo" && renameHeader[1] == "tipo") {
+        const result = sheet.map((column) => {
+          const loop = cutHeaders.map((element) => {
+            return {
+              type: column.tipo,
+              symbol: column.simbolo,
+              severity: element,
+              start: column.Start,
+              end: column.End,
+              description: column[element],
+            };
+          });
+          return loop;
+        });
+
+        const verifyIfExist = await Criticos.exists({type: result[0][0].type,});
+        if (!verifyIfExist) {
+          result.forEach((element) => {
+            Criticos.insertMany(element);
+          });
+        } else {
+          await Criticos.deleteMany({ type: result[0][0].type });
+          result.forEach((element) => {
+            Criticos.insertMany(element);
+          });
+        }
+        return true;
+      } else {
+        return false;
+      }
+      
+    
+    case 'pifias': 
+
+    if(renameHeader[0] == 'start' && renameHeader[1] == 'end'){
+      const cutHeaders = headers.slice(2);
+      const data = []
+      sheet.forEach((column) => {
+        cutHeaders.forEach((element) => {
+          data.push({
+            start: column.start,
+            end: column.end,
+            type: element,
+            description: column[element],
+          })
+        });
+      });
+      
+      const verifyIfExist = await Pifias.count()
+      if(verifyIfExist == 0){
+       await Pifias.insertMany(data)
       }
       else{
-        return false
+        await Pifias.deleteMany({})
+        await Pifias.insertMany(data)
       }
+      return true
+    }
+    else {
+      return false
+    }
 
     default:
       break;
@@ -135,8 +224,6 @@ module.exports = {
       res.json({mensaje: 'Hoja cargada correctamente'})
       }
 
-     
-      
     
   },
 }

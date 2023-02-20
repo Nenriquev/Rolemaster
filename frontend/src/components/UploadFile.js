@@ -89,6 +89,8 @@ function UploadFile() {
           >
             <MenuItem value={'bonificadores'}>Bonificadores</MenuItem>
             <MenuItem value={'armas'}>Armas</MenuItem>
+            <MenuItem value={'criticos'}>Criticos</MenuItem>
+            <MenuItem value={'pifias'}>Pifias</MenuItem>
           </Select>
         </FormControl>
       </Box>
