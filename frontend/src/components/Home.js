@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Critical from "./Critical";
 import './css/home.css'
  
 
@@ -8,8 +9,6 @@ const Home = () => {
   const [status, setStatus] = useState('')
   const [data, setData] = useState('')
   const [critical, setCritical] = useState('')
-  const [criticalData, setCriticalData] = useState('')
-  const [description, setDescription] = useState('')
   const [weapons, setWeapons] = useState([])
   const [selectedCategory, setSelectedCategory] = useState([])
 
@@ -47,31 +46,6 @@ const Home = () => {
     
   }
 
-  const handleCriticalData =  (e) => {
-    const { name, value } = e.target;
-    setCriticalData({ ...criticalData, [name]: value});
-  }
-
-
-
-  const handleSubmitCritical = async (e) => {
-    e.preventDefault()
-    const formData = new FormData()
-    formData.append('tirada', criticalData.critical)
-    formData.append('critical', critical.result)
-    formData.append('type', critical?.data?.tipo ? critical.data.tipo : null)
-
-    
-    var requestOptions = {
-      method: 'POST',
-      body: formData,
-    };
-    
-   const response = await fetch("/criticals", requestOptions)
-      .catch(error => console.log('error', error));
-    const message = await response.json()
-    setDescription(message)
-  }
 
   const handleData = (e) => {
     const { name, value } = e.target;
@@ -113,11 +87,7 @@ const Home = () => {
       {
         critical && typeof(critical.result) != 'number' ? 
         <div className="container-description">
-          <form onSubmit={handleSubmitCritical}>
-            <label>Tirada <input onChange={handleCriticalData} type="text" id="critical" name="critical"/></label>
-            <button type='submit'>Tirar</button>
-            <h2>{description.critic}</h2>
-          </form>
+          <Critical critical={critical}/>
         </div>
           : ''
       }
