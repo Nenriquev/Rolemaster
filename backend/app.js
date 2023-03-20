@@ -12,10 +12,10 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://localhost:27017/rolemaster_db',{useNewUrlParser: true})
+//mongodb://localhost:27017
+mongoose.connect('mongodb://127.0.0.1:27017/rolemaster_db',{useNewUrlParser: true})
     .then(()=> console.log('Base de datos conectada'))
     .catch(err => console.error(err))
-
 
 
 app.use(logger('dev'));

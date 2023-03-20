@@ -8,7 +8,7 @@ const readController = require('../controller/readController.js')
 
 const uploadMiddleware = (req, res, next) => {
   if(!req?.files?.file){
-    return res.status(500).json({error: 'no hay archivo'})
+    return res.status(500).json({error: 'No ha seleccionado ningun archivo'})
   }
   else {
     if(req.files.file.mimetype != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'){
@@ -23,8 +23,8 @@ const uploadMiddleware = (req, res, next) => {
 
 
 /* GET home page. */
-/* router.get('/api/ver', indexController.get)
-router.post('/api/create', indexController.post) */
+router.get('/', (req, res) =>{res.send('Servidor corriendo')})
+
 router.post('/api/upload',uploadMiddleware, filesController.fileAuth) 
 router.post('/api/read', readController.read) 
 router.post('/api/criticals', readController.getCriticals) 

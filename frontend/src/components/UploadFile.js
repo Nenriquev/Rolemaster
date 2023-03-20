@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import './css/uploadFile.css'
+import {Link} from 'react-router-dom'
 import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert} from '@mui/material'
 
 
@@ -74,10 +75,14 @@ function UploadFile() {
   };
   return (
     <div className="container">
+
+      <div className='home-btn'>
+        <Link to='/'>🏠</Link>
+      </div>
       
         <form className="formulario" onSubmit={addTask}>
         <Box >
-        <FormControl className='box' sx={{width: '100%'}}>
+        <FormControl className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
           <InputLabel id="demo-simple-select-label">Hoja a cargar</InputLabel>
           <Select
             ref={category}
@@ -94,12 +99,19 @@ function UploadFile() {
           </Select>
         </FormControl>
       </Box>
-      <Button variant="contained" component="label">{file ? file.name : 'Seleccionar Archivo'}
-        <input hidden type="file" onChange={handleFile} name="file"/>
-      </Button>
+      
+      <div className='alert-container'>
           {status.error ?  <Alert variant="filled" severity="error">{status.error}</Alert> : null}
           {status.mensaje ? <Alert variant="filled" severity="success">{status.mensaje}</Alert>: null}
-          <Button type='submit' variant="contained" color="success">Cargar</Button>
+      </div>
+
+      <div className='select-file-btn'>
+      <Button className='file-btn' variant="contained" component="label">{file ? file.name : 'Seleccionar Archivo'}
+        <input hidden type="file" onChange={handleFile} name="file"/>
+      </Button>
+      </div>
+    
+          <Button className='upload-btn' type='submit' variant="contained" color="success">Cargar</Button>
         </form>
   
     </div>

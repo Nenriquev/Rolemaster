@@ -1,0 +1,15 @@
+body{
+    background-image: url('./background.jpg');
+    background-size: cover;
+}
+
+
+@media (max-width: 684px) {
+
+body{
+    background-position: center;
+}
+    
+}
+
+
