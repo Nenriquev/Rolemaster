@@ -65,6 +65,7 @@ const Home = () => {
       <form onSubmit={handleSubmit}>
         <label>Tirada <input onChange={handleData} type="text" id="tirada" name="tirada" /></label>
         <label>Armadura <input onChange={handleData} type="text" id="armadura" name="armadura" /></label>
+        <label>Tipo de arma</label>
         <select onChange={handleCategory} name='type'>
           <option defaultValue={''}>Selecciona una opción</option>
           <option value={'1 mano'}>1 Mano</option>
@@ -72,6 +73,8 @@ const Home = () => {
           <option value={'magia ofensiva'}>Magia ofensiva</option>
         </select>
         { weapons.data && weapons.data.length > 0 ?
+        <div>
+        <label>Arma</label>
         <select onChange={handleData} name='arma'>
           <option defaultValue={''}>Selecciona una opción</option>
           {weapons.data.map((item, index) => {
@@ -79,8 +82,16 @@ const Home = () => {
               <option key={index} value={item.arma}>{item.arma}</option>
               )
           })}
-        </select> : ''
+        </select> 
+        </div> : ''
         } 
+
+        <label>Criatura</label>
+        <select onChange={handleData} name='criatura'>
+          <option value={''}>Sin especificar</option>
+          <option value={-1}>-1</option>
+          <option value={-2}>-2</option>
+        </select>
         <button type='submit'>Tirar</button>
       </form>
       <h2>{status.result}</h2>

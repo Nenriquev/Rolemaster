@@ -1,5 +1,6 @@
   import { useState } from "react"
   import verify from "./Magicals"
+  import './css/critical.css'
   
 
 

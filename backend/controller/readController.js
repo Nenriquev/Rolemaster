@@ -1,59 +1,32 @@
 const Armas = require('../database/models/Armas') 
 const Criticos = require('../database/models/Criticos') 
 const Pifias = require('../database/models/Pifias') 
-const Criticos_secundarios = require('../database/models/Criticos_secundarios') 
+const Criticos_secundarios = require('../database/models/Criticos_secundarios')
+const dataModule = require('../controller/dataModule') 
 
 
 
 module.exports = {
 
   read: async (req, res) => {
+
     const tiradaSM = Number(req?.body?.tirada);   //Tirada sin modificar
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : ''
     const weaponKey = req?.body?.arma ? req.body.arma : ''
 
     const pifia = await Armas.findOne({TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}, arma: weaponKey}, {TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}})
-    const ataque = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
+    const attack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
 
       if(pifia){
        return res.json({result: 'Pifiaste', data: pifia.TSM_pifias[0]})
       }
 
-      if(ataque){
-        Armas.aggregate([
-          {
-            $match: {
-              arma: weaponKey,
-            }
-          },
-          {
-            $project: {
-              tipo: '$tipo',
-              arma: '$arma',
-              ataque: {
-                "$let": {
-                  "vars": {
-                    "ta1_value": `$TSM_ataques.ataque.${armour}`
-                  },
-                  "in": {
-                    "$arrayElemAt": [ "$$ta1_value", 0 ]
-                  }
-                }
-              },
-              "_id": 0
-            }
-          }
-        ]).exec((err, response) => {
-          if(err){
-            console.log(err)
-          }
-          if(response && response[0].ataque.length > 0){
-            console.log(response)
-            return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
-          }
-        })
-        
-      } else {
+      if(attack){
+        const response = await dataModule.attack(weaponKey, armour)
+        return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
+      } 
+      
+      else {
 
        Armas.aggregate([
       { $match: {arma: weaponKey} },
