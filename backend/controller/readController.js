@@ -9,51 +9,32 @@ const dataModule = require('../controller/dataModule')
 module.exports = {
 
   read: async (req, res) => {
-
-    const tiradaSM = Number(req?.body?.tirada);   //Tirada sin modificar
+    
+    const tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '';   //Tirada sin modificar
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : ''
+    const criatura = req.body.criatura
     const weaponKey = req?.body?.arma ? req.body.arma : ''
-
     const pifia = await Armas.findOne({TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}, arma: weaponKey}, {TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}})
-    const attack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
+    const specialAttack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
+
 
       if(pifia){
        return res.json({result: 'Pifiaste', data: pifia.TSM_pifias[0]})
       }
 
-      if(attack){
-        const response = await dataModule.attack(weaponKey, armour)
+      else if(specialAttack){
+        const response = await dataModule.specialAttack(weaponKey, armour)
         return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
       } 
       
       else {
-
-       Armas.aggregate([
-      { $match: {arma: weaponKey} },
-      {
-        $project: {
-          arma: '$arma',
-          tipo: '$tipo',
-          tirada: {
-            $filter: {
-              input: `$tirada.${tiradaSM}.${armour}`,
-              as: "item",
-              cond: { $ne: [`$$item.${armour}`, {}] },
-            },
-          },
-        },
-      },
-    ]).exec((err, response) => {
-      if (err) {
-       console.log(err)
-      }
+        const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
+        console.log(response)
         if(response && response[0]?.tirada?.length > 0){
           return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})
         }
         return res.json({result: 'No se encontraron resultados'})
-    }); 
- 
-  }
+       }
   },
 
   getCriticals: async (req, res) => {
