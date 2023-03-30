@@ -29,7 +29,6 @@ module.exports = {
       
       else {
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
-        console.log(response)
         if(response && response[0]?.tirada?.length > 0){
           return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})
         }

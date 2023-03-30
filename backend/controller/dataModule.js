@@ -28,14 +28,18 @@ module.exports = {
       if(criatura != '' && typeof(response[0]?.tirada[0]) != 'number') {
         const criature = Number(criatura)
         const attack = response[0].tirada[0];
-        const letra = attack[2];
-        const pos_letra = criticos.indexOf(letra); // Obtener la posición de la letra en el array del abecedario
-        const pos_reemplazo = pos_letra - criature; // Obtener la posición de la letra de reemplazo
-        const letra_reemplazo = criticos[pos_reemplazo]; // Obtener la letra de reemplazo del abecedario
-        const nuevo_str = attack.replace(letra, letra_reemplazo); // Reemplazar 'D' por 'B' en el string original
-
-        console.log(nuevo_str)
+        const letra = attack[attack.length - 2]
+        const pos_letra = criticos.indexOf(letra); 
+        const pos_reemplazo = pos_letra - criature; 
         
+          if(pos_reemplazo >= 0){
+            const letra_reemplazo = criticos[pos_reemplazo]; 
+            const nuevo_str = attack.replace(letra, letra_reemplazo); 
+            response[0].tirada[0] = nuevo_str
+          } else {
+            const numero = attack.slice(0, -2);
+            response[0].tirada[0] = numero
+          }
       } 
 
       resolve(response)

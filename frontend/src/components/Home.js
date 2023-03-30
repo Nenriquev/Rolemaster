@@ -86,11 +86,11 @@ const Home = () => {
         </div> : ''
         } 
 
-        <label>Criatura</label>
+        <label>Tipo de criatura</label>
         <select onChange={handleData} name='criatura'>
           <option value={''}>Sin especificar</option>
-          <option value={1}>-1</option>
-          <option value={2}>-2</option>
+          <option value={1}>-1 grado</option>
+          <option value={2}>-2 grados</option>
         </select>
         <button type='submit'>Tirar</button>
       </form>
