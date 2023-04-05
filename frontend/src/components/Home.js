@@ -1,7 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
+import {FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material'
 import Critical from "./Critical";
+import WeaponsInput from "./WeaponsInput";
 import './css/home.css'
+import CriatureInput from "./CriatureInput";
+import WeaponCriatureType from "./WeaponCriatureType";
  
 
 const Home = () => {
@@ -11,7 +15,6 @@ const Home = () => {
   const [critical, setCritical] = useState('')
   const [weapons, setWeapons] = useState([])
   const [selectedCategory, setSelectedCategory] = useState([])
-
 
   useEffect(() => {
     var requestOptions = {
@@ -27,9 +30,12 @@ const Home = () => {
 
   }, [selectedCategory])
 
+  const handleSubmit = useCallback(async (e) => {
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
+    if(e){
+      e.preventDefault()
+    }
+    
     var requestOptions = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -43,8 +49,12 @@ const Home = () => {
     if(message.result !== 'No se encontraron resultados'){
       setCritical(message)
     }
-    
-  }
+  },[data, setCritical, setStatus])
+
+  useEffect(() => {
+    handleSubmit()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[data.criatura, data.weapon_type])
 
 
   const handleData = (e) => {
@@ -52,10 +62,18 @@ const Home = () => {
     setData({ ...data, [name]: value });
   }
 
+
   const handleCategory = (e) => {
     setSelectedCategory({weapon: e.target.value})
+    setData(prevState => ({
+      ...prevState,
+      arma: '',
+      criatura: '',
+      weapon_type: ''
+    }));
   }
 
+  console.log(data)
 
 
   return (
@@ -63,42 +81,43 @@ const Home = () => {
       <h1>HOME</h1>
       <Link to='/uploadFile'>Subir un archivo</Link>
       <form onSubmit={handleSubmit}>
-        <label>Tirada <input onChange={handleData} type="text" id="tirada" name="tirada" /></label>
-        <label>Armadura <input onChange={handleData} type="text" id="armadura" name="armadura" /></label>
-        <label>Tipo de arma</label>
-        <select onChange={handleCategory} name='type'>
-          <option defaultValue={''}>Selecciona una opción</option>
-          <option value={'1 mano'}>1 Mano</option>
-          <option value={'contundentes'}>Contundentes</option>
-          <option value={'magia ofensiva'}>Magia ofensiva</option>
-        </select>
-        { weapons.data && weapons.data.length > 0 ?
-        <div>
-        <label>Arma</label>
-        <select onChange={handleData} name='arma'>
-          <option defaultValue={''}>Selecciona una opción</option>
-          {weapons.data.map((item, index) => {
-            return (
-              <option key={index} value={item.arma}>{item.arma}</option>
-              )
-          })}
-        </select> 
-        </div> : ''
+        <label>Tirada <input onChange={handleData} type="text" id="tirada" name="tirada" required/></label>
+        <label>Armadura <input onChange={handleData} type="text" id="armadura" name="armadura" required/></label>
+        <FormControl className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+        <InputLabel>Tipo de arma</InputLabel>
+        <Select
+          value={selectedCategory?.weapon ?? ''}
+          defaultValue={''}
+          label="Tipo de arma"
+          onChange={handleCategory}
+        >
+          <MenuItem value={'1 mano'}>1 Mano</MenuItem>
+          <MenuItem value={'contundentes'}>Contundentes</MenuItem>
+          <MenuItem value={'magia ofensiva'}>Magia ofensiva</MenuItem>
+        </Select>
+      </FormControl>
+
+        { 
+          weapons.data && weapons.data.length > 0 ? 
+          <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : '' 
         } 
 
-        <label>Tipo de criatura</label>
-        <select onChange={handleData} name='criatura'>
-          <option value={''}>Sin especificar</option>
-          <option value={1}>-1 grado</option>
-          <option value={2}>-2 grados</option>
-        </select>
-        <button type='submit'>Tirar</button>
+          <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
+        
+        { 
+          data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? 
+          <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
+        }
+
+        <Button type='submit' variant="contained" color="error">Tirar</Button>
       </form>
+
+
       <h2>{status.result}</h2>
       {
         critical && typeof(critical.result) != 'number' ? 
         <div className="container-description">
-          <Critical critical={critical}/>
+          <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
         </div>
           : ''
       }

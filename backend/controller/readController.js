@@ -1,6 +1,4 @@
 const Armas = require('../database/models/Armas') 
-const Criticos = require('../database/models/Criticos') 
-const Pifias = require('../database/models/Pifias') 
 const Criticos_secundarios = require('../database/models/Criticos_secundarios')
 const dataModule = require('../controller/dataModule') 
 
@@ -9,10 +7,10 @@ const dataModule = require('../controller/dataModule')
 module.exports = {
 
   read: async (req, res) => {
-    
-    const tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '';   //Tirada sin modificar
-    const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : ''
-    const criatura = req.body.criatura
+
+    const tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
+    const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : '0'
+    const criatura = req.body.criatura ? req.body.criatura : ''
     const weaponKey = req?.body?.arma ? req.body.arma : ''
     const pifia = await Armas.findOne({TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}, arma: weaponKey}, {TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}})
     const specialAttack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
@@ -23,7 +21,7 @@ module.exports = {
       }
 
       else if(specialAttack){
-        const response = await dataModule.specialAttack(weaponKey, armour)
+        const response = await dataModule.specialAttack(weaponKey, armour, criatura)
         return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
       } 
       
@@ -40,51 +38,26 @@ module.exports = {
 
     const tirada = Number(req?.body?.tirada)
     const attack = req.body.attack
-    const result = []
+    const criature = req.body.criature
+    const weapon_type = req.body.weapon_type
+
+    console.log(req.body)
 
 
     if (attack == "Pifiaste" || attack == 'F*') {
-      Pifias.find({
-        type: req.body.type,
-        start: { $lte: tirada },
-        end: { $gte: tirada },
-      }).exec((err, response) => {
-        if (response && response[0]?.description?.length > 0) {
-          return res.json({ critic: response[0].description });
-        }
-        return res.json({ critic: "No se encontraron resultados" });
-      });
-    } else {
-      
-    for (var i = attack.length - 1; i >= 0; i--) {
-      result.push(attack[i])
-    }
-
-    const attackValues = {
-      severity: result[1],
-      critical: result[0]
-    }
-
-
-       if (result.length > 0) {
-
-        const secondaryCriticals = ['F','G','H','I','J']
-        if(secondaryCriticals.includes(attackValues.severity)){
-          attackValues.severity = 'E'
-        }
-
-        Criticos.find({
-          symbol: attackValues.critical,
-          severity: attackValues.severity,
-          start: { $lte: tirada },
-          end: { $gte: tirada },
-        }).exec((err, response) => {
-          if (response && response[0]?.description?.length > 0) {
-            return res.json({critic: response[0]?.description});
-          }
-          return res.json({critic: "No se encontraron resultados" });
-        });
+      const response = await dataModule.pifias(req.body.type, tirada)
+      if (response && response[0]?.description?.length > 0) {
+        return res.json({ critic: response[0].description });
       }
+      return res.json({ critic: "No se encontraron resultados" });
+      
+    } else {
+
+      const response = await dataModule.criticals(attack, tirada, criature, weapon_type)
+      if (response && response[0]?.description?.length > 0) {
+        return res.json({critic: response[0]?.description});
+      }
+      return res.json({critic: "No se encontraron resultados" });
     }
 
   },

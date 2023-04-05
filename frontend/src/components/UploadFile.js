@@ -83,11 +83,9 @@ function UploadFile() {
         <form className="formulario" onSubmit={addTask}>
         <Box >
         <FormControl className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-          <InputLabel id="demo-simple-select-label">Hoja a cargar</InputLabel>
+          <InputLabel >Hoja a cargar</InputLabel>
           <Select
             ref={category}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={sheet}
             label="Hoja a cargar"
             onChange={handleChange}
