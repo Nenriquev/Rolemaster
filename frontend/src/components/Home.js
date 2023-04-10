@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import {FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material'
 import Critical from "./Critical";
 import WeaponsInput from "./WeaponsInput";
-import './css/home.css'
 import CriatureInput from "./CriatureInput";
 import WeaponCriatureType from "./WeaponCriatureType";
+import LimitTypeInput from "./LimitTypeInput";
+import './css/home.css'
  
 
 const Home = () => {
@@ -54,7 +55,7 @@ const Home = () => {
   useEffect(() => {
     handleSubmit()
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[data.criatura, data.weapon_type])
+  },[data.criatura, data.weapon_type, data.limite])
 
 
   const handleData = (e) => {
@@ -69,7 +70,8 @@ const Home = () => {
       ...prevState,
       arma: '',
       criatura: '',
-      weapon_type: ''
+      weapon_type: '',
+      limite: '',
     }));
   }
 
@@ -94,8 +96,12 @@ const Home = () => {
           <MenuItem value={'1 mano'}>1 Mano</MenuItem>
           <MenuItem value={'contundentes'}>Contundentes</MenuItem>
           <MenuItem value={'magia ofensiva'}>Magia ofensiva</MenuItem>
+          <MenuItem value={'animales'}>Animales</MenuItem>
+          <MenuItem value={'artes marciales'}>Artes marciales</MenuItem>
         </Select>
       </FormControl>
+
+      
 
         { 
           weapons.data && weapons.data.length > 0 ? 
@@ -108,6 +114,15 @@ const Home = () => {
           data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? 
           <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
         }
+          
+        {
+          selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> : 
+          ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
+        }
+        
+          
+  
+
 
         <Button type='submit' variant="contained" color="error">Tirar</Button>
       </form>

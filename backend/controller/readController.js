@@ -8,12 +8,14 @@ module.exports = {
 
   read: async (req, res) => {
 
-    const tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
+    let tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
+    const limit = req.body.limite ?? ''
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : '0'
-    const criatura = req.body.criatura ? req.body.criatura : ''
-    const weaponKey = req?.body?.arma ? req.body.arma : ''
+    const criatura = req.body.criatura ?? ''
+    const weaponKey = req?.body?.arma ?? ''
     const pifia = await Armas.findOne({TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}, arma: weaponKey}, {TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}})
     const specialAttack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
+    
 
 
       if(pifia){
@@ -26,6 +28,12 @@ module.exports = {
       } 
       
       else {
+
+        if(limit != '') {
+          const limitType = await dataModule.limitType(limit)
+          tiradaSM = tiradaSM >= limitType ? limitType : tiradaSM
+        }
+
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
         if(response && response[0]?.tirada?.length > 0){
           return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})

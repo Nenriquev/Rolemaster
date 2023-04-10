@@ -1,6 +1,8 @@
 const Armas = require('../database/models/Armas') 
 const Pifias = require('../database/models/Pifias') 
 const Criticos = require('../database/models/Criticos') 
+const Limites = require('../database/models/Limites'); 
+
 
 
 const reduceCritical = (criatura, response) => {
@@ -152,6 +154,20 @@ module.exports = {
     })
 
   },
+
+  limitType: async (limit) => {
+
+    return new Promise ((resolve, reject) => {
+      Limites.findOne({
+        tipo: limit,
+      }).then(response => {
+        console.log(response)
+        resolve(response.limite)
+      }).catch(err => reject(err))
+
+    })
+    
+  }
 
 
 }

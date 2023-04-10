@@ -5,12 +5,12 @@ const WeaponCriatureType = (props) => {
   return (
     <div>
           <FormControl className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-            <InputLabel>Tipo de criatura</InputLabel>
+            <InputLabel>Tipo de Arma</InputLabel>
             { props.category.weapon !== 'magia ofensiva' ?
               <Select
                 name="weapon_type"
                 value={props.name ?? ''}
-                label="Tipo de criatura"
+                label="Tipo de Arma"
                 onChange={props.onChange}
               > 
                   <MenuItem value={''}>Sin especificar</MenuItem>
@@ -24,7 +24,7 @@ const WeaponCriatureType = (props) => {
               <Select
               name="weapon_type"
               value={props.name ?? ''}
-              label="Tipo de criatura"
+              label="Tipo de Arma"
               onChange={props.onChange}
             > 
                 <MenuItem value={''}>Sin especificar</MenuItem>
