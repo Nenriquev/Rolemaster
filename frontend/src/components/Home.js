@@ -93,6 +93,7 @@ const Home = () => {
           label="Tipo de arma"
           onChange={handleCategory}
         >
+          <MenuItem value={''}>Selecciona un arma</MenuItem>
           <MenuItem value={'1 mano'}>1 Mano</MenuItem>
           <MenuItem value={'contundentes'}>Contundentes</MenuItem>
           <MenuItem value={'magia ofensiva'}>Magia ofensiva</MenuItem>
