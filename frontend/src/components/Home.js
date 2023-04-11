@@ -59,6 +59,10 @@ const Home = () => {
 
 
   const handleData = (e) => {
+    if(e.target.name === 'arma'){
+      setCritical('')
+      setStatus('')
+    }
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   }
@@ -66,6 +70,8 @@ const Home = () => {
 
   const handleCategory = (e) => {
     setSelectedCategory({weapon: e.target.value})
+    setCritical('')
+    setStatus('')
     setData(prevState => ({
       ...prevState,
       arma: '',
@@ -74,9 +80,6 @@ const Home = () => {
       limite: '',
     }));
   }
-
-  console.log(data)
-
 
   return (
     <div className="App">

@@ -2,6 +2,7 @@
 
 const verify = async (attack, id_target, weapon) => {
 
+  
   const secondaryCriticals = ['F','G','H','I','J']
   const result = []
   const formData = {}
@@ -14,6 +15,7 @@ const verify = async (attack, id_target, weapon) => {
     severity: result[1],
     critical: result[0]
   }
+
 
  if(secondaryCriticals.includes(attackValues.severity) && (id_target === 'critical2' || id_target === 'critical3') ){
 
@@ -34,6 +36,7 @@ const verify = async (attack, id_target, weapon) => {
     .catch(error => console.log('error', error));
   const message = await response.json()
   return message
+  
 
  } else {
   return false

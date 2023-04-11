@@ -49,7 +49,6 @@ module.exports = {
     const criature = req.body.criature
     const weapon_type = req.body.weapon_type
 
-    console.log(req.body)
 
 
     if (attack == "Pifiaste" || attack == 'F*') {
@@ -79,6 +78,7 @@ module.exports = {
 
   getMagicals: async (req, res) => {
 
+
     const destructure = (attack) => {
       const result = [];
       for (var i = attack?.length - 1; i >= 0; i--) {
@@ -99,11 +99,11 @@ module.exports = {
       const id_target = req?.body?.id_target;
 
       const attackValues = destructure(attack)
-
+      
       
       Criticos_secundarios.findOne({
         arma: weapon,
-        critico: attackValues.severity,
+        critical: attackValues.severity,
       }).exec((err, response) => {
         if(response){
         return res.json({ attack: response[id_target] });

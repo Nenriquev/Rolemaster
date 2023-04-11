@@ -14,6 +14,10 @@ const Critical = (props) => {
   const weapon = props.critical?.data?.arma
   const criature = props?.criature?.type
   const weapon_type = props?.criature?.weapon_type
+  const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J'))
+  const IsvalidCritical3 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('H') || attack.includes('I') || attack.includes('J'))
+
+ 
 
   const handleSubmitCritical = async (e) => {
     e.preventDefault()
@@ -56,7 +60,7 @@ const Critical = (props) => {
         <h2>{description?.critical?.critic}</h2>
       </form>
       {
-        attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J') ? 
+         IsvalidCritical2 ? 
       <form id="critical2" onSubmit={handleSubmitCritical}>
         <label>Critico 2<input onChange={handleCriticalData} type="text" name="critical2"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #2</Button>
@@ -64,7 +68,7 @@ const Critical = (props) => {
       </form> : ''
       }
       {
-        attack.includes('H') || attack.includes('I') || attack.includes('J') ? 
+        IsvalidCritical3 ? 
       <form id="critical3" onSubmit={handleSubmitCritical}>
         <label>Critico 3<input onChange={handleCriticalData} type="text" name="critical3"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #3</Button>
@@ -77,3 +81,10 @@ const Critical = (props) => {
 }
 
 export default Critical;
+
+
+
+
+
+
+
