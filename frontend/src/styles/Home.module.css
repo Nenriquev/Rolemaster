@@ -1,0 +1,38 @@
+.App{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.form{
+  width: 80%;
+}
+
+
+.container_description{
+  width: 100%;
+}
+
+
+
+
+@media (min-width: 648px) and (max-width: 1024px){
+
+  .form {
+     width: 40%;
+   }
+   
+ }
+ 
+ 
+ @media (min-width: 1024px) {
+ 
+   .form {
+     width: 20%;
+   }
+   
+ }

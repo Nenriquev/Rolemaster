@@ -1,25 +1,25 @@
-const Armas = require('../database/models/Armas') 
-const Pifias = require('../database/models/Pifias') 
-const Criticos = require('../database/models/Criticos') 
-const Limites = require('../database/models/Limites'); 
+const Armas = require('../database/models/Armas');
+const Pifias = require('../database/models/Pifias');
+const Criticos = require('../database/models/Criticos');
+const Limites = require('../database/models/Limites');
 
 
 
 const reduceCritical = (criatura, response) => {
-  const criticos = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+  const criticals = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   const criature = Number(criatura);
   const attack = response;
-  const letra = attack[attack.length - 2];
-  const pos_letra = criticos.indexOf(letra);
-  const pos_reemplazo = pos_letra - criature;
+  const letter = attack[attack.length - 2];
+  const pos_letter = criticals.indexOf(letter);
+  const pos_replacement = pos_letter - criature;
 
-  if (pos_reemplazo >= 0) {
-    const letra_reemplazo = criticos[pos_reemplazo];
-    const nuevo_str = attack.replace(letra, letra_reemplazo);
-    return nuevo_str;
+  if (pos_replacement >= 0) {
+    const letter_replace = criticals[pos_replacement];
+    const new_str = attack.replace(letter, letter_replace);
+    return new_str;
   } else {
-    const numero = attack.slice(0, -2);
-    return numero;
+    const number = Number(attack.slice(0, -2));
+    return number;
   }
 };
 
@@ -88,10 +88,16 @@ module.exports = {
         }
       }
     ]).then(response => {
-      if(criatura != '' && typeof(response[0]?.ataque[0]) != 'number' && response[0].tirada[0] != 'F*') {
-        const result = reduceCritical(criatura, response[0]?.ataque[0])
-        response[0].ataque[0] = result 
-      } 
+      if(response.length > 0 && response[0].tirada != null) {
+        const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
+        const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
+        const isNotPfifia = response[0]?.tirada[0] != 'F*'
+
+        if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia) {
+          const result = reduceCritical(criatura, response[0]?.tirada[0])
+          response[0].tirada[0] = result 
+        }
+      }
       resolve(response)
     }).catch(err => reject(err)))
   },
@@ -110,12 +116,15 @@ module.exports = {
 
   },
 
-  criticals: async = (attack, tirada, criature, weapon_type) => {
+  criticals: async = (attackRoll, roll, criatureSize, weapon_type) => {
+    const criticalRoll = typeof roll == 'number' ? roll : 0
     const result = []
+
+    console.log(criticalRoll)
 
     return new Promise((resolve, reject) => {
 
-    for (var i = attack.length - 1; i >= 0; i--) {
+    for (var i = attackRoll.length - 1; i >= 0; i--) {
       result.push(attack[i])
     }
 
@@ -133,9 +142,9 @@ module.exports = {
           attackValues.severity = 'E'
         }
 
-        if(criature == 'G' || criature == 'L' || criature == 'GM' || criature == 'LM' ) {
+        if(criatureSize == 'G' || criatureSize == 'L' || criatureSize == 'GM' || criatureSize == 'LM' ) {
 
-          attackValues.critical = criature
+          attackValues.critical = criatureSize
           attackValues.severity = weapon_type
         
         }
@@ -143,8 +152,8 @@ module.exports = {
         Criticos.find({
           symbol: attackValues.critical,
           severity: attackValues.severity,
-          start: { $lte: tirada },
-          end: { $gte: tirada },
+          start: { $lte: criticalRoll },
+          end: { $gte: criticalRoll },
         }).then(response => {
 
             resolve(response)
