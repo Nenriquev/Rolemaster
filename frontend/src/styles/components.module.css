@@ -3,6 +3,10 @@
 margin: 5px 0px;
 }
 
+.input__display{
+  width: 48%;
+}
+
 
 .icons{
 color: rgba(255, 255, 255, 0.584);

@@ -12,11 +12,14 @@
   width: 80%;
 }
 
-
 .container_description{
   width: 100%;
 }
 
+.input__container{
+  display: flex;
+  justify-content: space-between;
+}
 
 
 

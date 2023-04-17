@@ -125,7 +125,7 @@ module.exports = {
     return new Promise((resolve, reject) => {
 
     for (var i = attackRoll.length - 1; i >= 0; i--) {
-      result.push(attack[i])
+      result.push(attackRoll[i])
     }
 
     const attackValues = {

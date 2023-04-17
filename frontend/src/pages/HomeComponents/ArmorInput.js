@@ -6,7 +6,7 @@ import styles from '../../styles/components.module.css'
 
 const ArmorInput = (props) => {
     return(
-            <div className={styles.input__layout}>
+            <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControl variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
                 <TextField onChange={props.onChange} name='armadura' label="Armadura" variant="outlined" InputProps={{ startAdornment: 
                     <InputAdornment position="start">

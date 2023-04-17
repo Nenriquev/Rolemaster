@@ -7,8 +7,8 @@ import CriatureInput from "./HomeComponents/CriatureInput";
 import WeaponCriatureType from "./HomeComponents/WeaponCriatureType";
 import LimitTypeInput from "./HomeComponents/LimitTypeInput";
 import InputRoll from "./HomeComponents/InputRoll";
-import styles from '../styles/home.module.css'
 import ArmorInput from "./HomeComponents/ArmorInput";
+import styles from '../styles/home.module.css'
  
 
 const Home = () => {
@@ -87,6 +87,8 @@ const Home = () => {
   const resetData = () => {
     setSelectedCategory({weapon: ''})
     setData('')
+    setCritical('')
+    setStatus('')
     formRef.current.reset();
   }
 
@@ -96,10 +98,14 @@ const Home = () => {
     <div className={styles.App}>
       <h1>HOME</h1>
       <Link href='/uploadFile'>Subir un archivo</Link>
-      <button type="button" onClick={resetData}>reset</button>
+      <button type="button" onClick={resetData}>Volver a tirar</button>
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-        <InputRoll onChange={handleData}/>
-        <ArmorInput onChange={handleData}/>
+
+        <div className={styles.input__container}>
+          <InputRoll onChange={handleData}/>
+          <ArmorInput onChange={handleData}/>
+        </div>
+
         <FormControl className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
         <InputLabel>Tipo de arma</InputLabel>
         <Select
