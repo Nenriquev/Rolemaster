@@ -1,4 +1,6 @@
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, InputAdornment } from "@mui/material";
+import styles from '../../styles/components.module.css'
+import { GiPaw, GiNinjaHeroicStance } from "react-icons/gi";
 
 const animales = ['pequeño', 'mediano', 'grande', 'super grande']
 const artes_marciales = ['rango 1', 'rango 2', 'rango 3','rango 4']
@@ -18,6 +20,11 @@ const LimitTypeInput = (props) => {
           value={props.name ?? ''}
           label="Tipo de limite"
           onChange={props.onChange}
+          startAdornment={
+            <InputAdornment position="start">
+             {props.type === 'animales' ? <GiPaw className={styles.icons}/> : <GiNinjaHeroicStance className={styles.icons}/>} 
+            </InputAdornment>
+          }
         >
           <MenuItem value={''}>Sin especificar</MenuItem>
           {

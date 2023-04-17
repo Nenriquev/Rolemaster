@@ -1,5 +1,7 @@
-import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
+import { FormControl, InputLabel, Select, MenuItem, InputAdornment } from "@mui/material";
 import styles from '../../styles/components.module.css'
+import { GiSpikedDragonHead } from "react-icons/gi";
+
 
 const CriatureInput = (props) => {
   
@@ -12,6 +14,11 @@ const CriatureInput = (props) => {
           value={props.name ?? ''}
           label="Tipo de criatura"
           onChange={props.onChange}
+          startAdornment={
+            <InputAdornment position="start">
+              <GiSpikedDragonHead className={styles.icons}/>
+            </InputAdornment>
+          }
         >
           <MenuItem value={''}>Sin especificar</MenuItem>
           <MenuItem value={1}>1 grado</MenuItem>
