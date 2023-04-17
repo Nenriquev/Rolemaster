@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import {FormControl, InputLabel, Select, MenuItem, Button, Box } from '@mui/material'
+import {FormControl, InputLabel, Select, MenuItem, Button, InputAdornment } from '@mui/material'
 import Critical from "./HomeComponents/Critical";
 import WeaponsInput from "./HomeComponents/WeaponsInput";
 import CriatureInput from "./HomeComponents/CriatureInput";
@@ -9,6 +9,8 @@ import LimitTypeInput from "./HomeComponents/LimitTypeInput";
 import InputRoll from "./HomeComponents/InputRoll";
 import styles from '../styles/home.module.css'
 import ArmorInput from "./HomeComponents/ArmorInput";
+import { GiSwitchWeapon } from "react-icons/gi";
+
  
 
 const Home = () => {
@@ -19,6 +21,7 @@ const Home = () => {
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const formRef = useRef();
+  const [shrink, setShrink] = useState(false);
 
   useEffect(() => {
     var requestOptions = {
@@ -107,6 +110,11 @@ const Home = () => {
           defaultValue={''}
           label="Tipo de arma"
           onChange={handleCategory}
+          startAdornment={
+            <InputAdornment position="start">
+             <GiSwitchWeapon className={styles.icons}/> 
+            </InputAdornment>
+          }
         >
           <MenuItem value={'1 mano'}>1 Mano</MenuItem>
           <MenuItem value={'contundentes'}>Contundentes</MenuItem>

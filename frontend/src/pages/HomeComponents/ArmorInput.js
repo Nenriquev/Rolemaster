@@ -3,6 +3,8 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import ShieldIcon from '@mui/icons-material/Shield';
 import styles from '../../styles/components.module.css'
+import { GiChestArmor } from "react-icons/gi";
+
 
 const ArmorInput = (props) => {
     return(
@@ -10,7 +12,7 @@ const ArmorInput = (props) => {
               <FormControl variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
                 <TextField onChange={props.onChange} name='armadura' label="Armadura" variant="outlined" InputProps={{ startAdornment: 
                     <InputAdornment position="start">
-                      <ShieldIcon className={styles.icons}/>
+                      <GiChestArmor className={styles.icons}/>
                     </InputAdornment>
                 }}/>
                 
