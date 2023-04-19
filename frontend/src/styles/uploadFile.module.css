@@ -47,6 +47,14 @@
   left: 15%;
 }
 
+.icons{
+  color: rgb(169, 169, 169);
+  stroke: rgb(18 64 63);
+  stroke-width: 5px;
+  font-size: 24px;    
+  }
+  
+
 @media (min-width: 648px) and (max-width: 1024px){
 
  .form {

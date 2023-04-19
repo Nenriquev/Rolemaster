@@ -36,12 +36,14 @@ const FormControlStyle = styled(FormControl)((props) => ({
   
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
     transform: props.children.props.value ? '' : 'translate(50px, 15px) scale(1)',
-    transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    transition: ".4s cubic-bezier(.25,.8,.5,1)",
+    zIndex: '0',
     },
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
       transform: 'translate(14px, -9px) scale(0.75)',
-      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+      transition: ".4s cubic-bezier(.25,.8,.5,1)",
+      color: 'yellow'
     },
 
     

@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
 import Link from "next/link";
-import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert} from '@mui/material'
-import styles from '../styles/uploadFile.module.css'
-
-
+import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, InputAdornment} from '@mui/material'
+import { styled } from '@mui/material/styles';
+import styles from '../styles/uploadFile.module.css'  
+import { GiCloudUpload } from "react-icons/gi";
 
 
 function UploadFile() {
@@ -82,20 +82,26 @@ function UploadFile() {
       
         <form className={styles.form} onSubmit={addTask}>
         <Box >
-        <FormControl className={styles.box} sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+        <FormControlStyle className={styles.box} sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
           <InputLabel >Hoja a cargar</InputLabel>
           <Select
             ref={category}
             value={sheet}
             label="Hoja a cargar"
             onChange={handleChange}
+            startAdornment={
+              <InputAdornment position="start">
+               <GiCloudUpload className={styles.icons}/>
+              </InputAdornment>
+            }
           >
             <MenuItem value={'bonificadores'}>Bonificadores</MenuItem>
             <MenuItem value={'armas'}>Armas</MenuItem>
             <MenuItem value={'criticos'}>Criticos</MenuItem>
             <MenuItem value={'pifias'}>Pifias</MenuItem>
+            <MenuItem value={'modificadores_alcance'}>Modificadores por alcance</MenuItem>
           </Select>
-        </FormControl>
+        </FormControlStyle>
       </Box>
       
       <div className={styles.alert_container}>
@@ -117,3 +123,22 @@ function UploadFile() {
 }
 
 export default UploadFile;
+
+
+const FormControlStyle = styled(FormControl)((props) => ({
+  
+  
+  '& .MuiFormLabel-root.MuiInputLabel-root': { 
+    transform: props.children[1].props.value ? '' : 'translate(50px, 15px) scale(1)', 
+    transition: ".4s cubic-bezier(.25,.8,.5,1)",
+    zIndex: '0'
+    },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+      transform: 'translate(14px, -9px) scale(0.75)',
+      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    }, 
+
+    
+    
+  }))

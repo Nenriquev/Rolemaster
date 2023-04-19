@@ -170,8 +170,9 @@ module.exports = {
       Limites.findOne({
         tipo: limit,
       }).then(response => {
-        console.log(response)
+        if(response){
         resolve(response.limite)
+        }
       }).catch(err => reject(err))
 
     })
