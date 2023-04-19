@@ -1,22 +1,22 @@
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import ShieldIcon from '@mui/icons-material/Shield';
 import styles from '../../styles/components.module.css'
+import { styled } from '@mui/material/styles';
 import { GiChestArmor } from "react-icons/gi";
 
 
 const ArmorInput = (props) => {
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
-              <FormControl variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} name='armadura' label="Armadura" variant="outlined" InputProps={{ startAdornment: 
+              <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+                <TextField onChange={props.onChange} value={props.name || ''} name='armadura' label="Armadura" variant="outlined" InputProps={{ startAdornment: 
                     <InputAdornment position="start">
                       <GiChestArmor className={styles.icons}/>
                     </InputAdornment>
                 }}/>
                 
-              </FormControl>
+              </FormControlStyle>
           
             </div>
           );
@@ -24,3 +24,20 @@ const ArmorInput = (props) => {
 }
 
 export default ArmorInput;
+
+const FormControlStyle = styled(FormControl)((props) => ({
+
+  
+  '& .MuiFormLabel-root.MuiInputLabel-root': { 
+    transform: props.children.props.value == '' ? 'translate(50px, 15px) scale(1)' : '',
+    transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+      transform: 'translate(14px, -9px) scale(0.75)',
+      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    },
+
+    
+    
+  }))
