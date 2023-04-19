@@ -2,20 +2,26 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import styles from '../../styles/components.module.css'
+import { styled } from '@mui/material/styles';
 import { GiPerspectiveDiceSixFacesThree } from "react-icons/gi";
 
 
+
+
 const InputRoll = (props) => {
+
+  
+
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
-              <FormControl variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} name='tirada' label="Tirada" variant="outlined" InputProps={{ startAdornment: 
+              <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+                <TextField onChange={props.onChange} value={props.name ?? ''} name='tirada' label="Tirada" variant="outlined" InputProps={{ startAdornment: 
                     <InputAdornment position="start" required>
                       <GiPerspectiveDiceSixFacesThree className={styles.icons}/>
                     </InputAdornment>
                 }}/>
                 
-              </FormControl>  
+              </FormControlStyle>  
           
             </div>
           );
@@ -23,3 +29,25 @@ const InputRoll = (props) => {
 }
 
 export default InputRoll;
+
+
+const FormControlStyle = styled(FormControl)((props) => ({
+
+  
+  '& .MuiFormLabel-root.MuiInputLabel-root': { 
+    transform: props.children.props.value ? '' : 'translate(50px, 15px) scale(1)',
+    transition: ".4s cubic-bezier(.25,.8,.5,1)",
+    zIndex: '0',
+    },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+      transform: 'translate(14px, -9px) scale(0.75)',
+      transition: ".4s cubic-bezier(.25,.8,.5,1)",
+      color: 'yellow'
+    },
+
+    
+    
+  }))
+
+

@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Select, MenuItem, InputAdornment } from "@mui/material";
 import styles from '../../styles/components.module.css'
 import { GiSharpAxe } from "react-icons/gi";
-
+import { styled } from '@mui/material/styles';
 
 const WeaponsInput = (props) => {
 
@@ -9,7 +9,7 @@ const WeaponsInput = (props) => {
     <div className={styles.input__layout}>
       
       
-        <FormControl className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+        <FormControlStyle className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
           <InputLabel>Arma</InputLabel>
             <Select
               name="arma"
@@ -17,9 +17,6 @@ const WeaponsInput = (props) => {
               label="Arma"
               variant="outlined"
               onChange={props.onChange}
-              renderValue={(params) => (
-                <div>Hola</div>
-              )}
               startAdornment={
                 <InputAdornment position="start">
                   <GiSharpAxe className={styles.icons}/>
@@ -31,10 +28,28 @@ const WeaponsInput = (props) => {
             })}
             </Select>
 
-        </FormControl>
+        </FormControlStyle>
         </div>
   )
 
 }
 
 export default WeaponsInput;
+
+
+const FormControlStyle = styled(FormControl)((props) => ({
+  
+
+  '& .MuiFormLabel-root.MuiInputLabel-root': { 
+    transform: props.children[1].props.value ? '' : 'translate(50px, 15px) scale(1)', 
+    transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
+      transform: 'translate(14px, -9px) scale(0.75)',
+      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+    }, 
+
+    
+    
+  }))

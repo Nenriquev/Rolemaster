@@ -226,6 +226,13 @@ const sheetVerify = async (worksheet, category) => {
       return false
     }
 
+
+    case 'modificadores_alcance':
+      if(renameHeader[0] == 'arma' && renameHeader[1] == ''){
+        
+      }
+
+
     default:
       break;
   }

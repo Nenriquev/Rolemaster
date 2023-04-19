@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import {FormControl, InputLabel, Select, MenuItem, Button, InputAdornment } from '@mui/material'
+import {Button } from '@mui/material'
 import Critical from "./HomeComponents/Critical";
 import WeaponsInput from "./HomeComponents/WeaponsInput";
 import CriatureInput from "./HomeComponents/CriatureInput";
@@ -8,9 +8,8 @@ import WeaponCriatureType from "./HomeComponents/WeaponCriatureType";
 import LimitTypeInput from "./HomeComponents/LimitTypeInput";
 import InputRoll from "./HomeComponents/InputRoll";
 import ArmorInput from "./HomeComponents/ArmorInput";
-import { GiSwitchWeapon } from "react-icons/gi";
-
 import styles from '../styles/home.module.css'
+import WeaponType from "./HomeComponents/WeaponType";
  
 
 const Home = () => {
@@ -21,7 +20,7 @@ const Home = () => {
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const formRef = useRef();
-  const [shrink, setShrink] = useState(false);
+ 
 
   useEffect(() => {
     var requestOptions = {
@@ -105,32 +104,12 @@ const Home = () => {
       <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         
         <div className={styles.input__container}>
-          <InputRoll onChange={handleData}/>
-          <ArmorInput onChange={handleData}/>
+          <InputRoll onChange={handleData} name={data.tirada}/>
+          <ArmorInput onChange={handleData} name={data.armadura}/>
         </div>
 
-        <FormControl className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-        <InputLabel>Tipo de arma</InputLabel>
-        <Select
-          value={selectedCategory?.weapon ?? ''}
-          defaultValue={''}
-          label="Tipo de arma"
-          onChange={handleCategory}
-          startAdornment={
-            <InputAdornment position="start">
-             <GiSwitchWeapon className={styles.icons}/> 
-            </InputAdornment>
-          }
-        >
-          <MenuItem value={'1 mano'}>1 Mano</MenuItem>
-          <MenuItem value={'contundentes'}>Contundentes</MenuItem>
-          <MenuItem value={'magia ofensiva'}>Magia ofensiva</MenuItem>
-          <MenuItem value={'animales'}>Animales</MenuItem>
-          <MenuItem value={'artes marciales'}>Artes marciales</MenuItem>
-        </Select>
-      </FormControl>
+        <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
 
-      
 
         { 
           weapons.data && weapons.data.length > 0 ? 
