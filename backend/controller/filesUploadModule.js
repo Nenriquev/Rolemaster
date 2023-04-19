@@ -2,6 +2,7 @@ const Bonificadores = require('../database/models/Bonficadores')
 const Armas = require('../database/models/Armas') 
 const Criticos = require('../database/models/Criticos') 
 const Pifias = require('../database/models/Pifias') 
+const Distance_bonus = require('../database/models/Distance_bonus') 
 const XLSX = require("xlsx");
 
 
@@ -31,6 +32,8 @@ const transformKeys = (sheet) => {
 
   return lowerCaseDataArray;
 };
+
+
 
 const sheetVerify = async (worksheet, category) => {
 
@@ -103,9 +106,6 @@ const sheetVerify = async (worksheet, category) => {
           }
           
         });
-
-        
-
         
         const data = newSheet.find((element) => {
           return element.arma;
@@ -228,9 +228,49 @@ const sheetVerify = async (worksheet, category) => {
 
 
     case 'modificadores_alcance':
-      if(renameHeader[0] == 'arma' && renameHeader[1] == ''){
+
+      if(renameHeader[0] == 'arma' && renameHeader[1] == 'a') {
+
+        const values = {
+          a: {start: 0, end: 3},
+          b: {start: 4, end: 8},
+          c: {start: 9, end: 8},
+          d: {start: 16, end: 30},
+          e: {start: 31, end: 45},
+          f: {start: 46, end: 60},
+          g: {start: 61, end: 90},
+          h: {start: 91, end: 110},
+          i: {start: 111, end: 120}
+        }
+
+        const arrayOfBonuses = newSheet.map(objeto => {
+          const bonus = [];
         
-      }
+          for (const propiedad in objeto) {
+            if (propiedad !== 'arma') {
+              bonus.push({
+                start: values[propiedad].start,
+                end: values[propiedad].end,
+                bonus: objeto[propiedad]
+              });
+            }
+          }
+        return {weapon: objeto.arma, bonus: bonus}
+        })
+
+        const verifyIfExist = await Distance_bonus.count()
+          if(verifyIfExist == 0){
+            await Distance_bonus.insertMany(arrayOfBonuses)
+          }
+          else{
+            await Distance_bonus.deleteMany({})
+            await Distance_bonus.insertMany(arrayOfBonuses)
+          }
+
+        return true
+      } 
+
+      return false
 
 
     default:

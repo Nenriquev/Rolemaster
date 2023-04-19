@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const BonusSchema = new Schema({start: Number, end: Number, bonus: Schema.Types.Mixed}, {_id: false})
 
 const Distance_bonus = new Schema({
-arma: {
+weapon: {
   type: String
 },
 bonus: [BonusSchema]

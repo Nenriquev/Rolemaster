@@ -10,6 +10,7 @@ import InputRoll from "./HomeComponents/InputRoll";
 import ArmorInput from "./HomeComponents/ArmorInput";
 import styles from '../styles/home.module.css'
 import WeaponType from "./HomeComponents/WeaponType";
+import Head from "next/head";
  
 
 const Home = () => {
@@ -97,7 +98,12 @@ const Home = () => {
   console.log(data)
 
   return (
+
     <div className={styles.App}>
+      <Head>
+        <title>Rolemaster</title>
+      </Head>
+
       <h1>HOME</h1>
       <Link href='/uploadFile'>Subir un archivo</Link>
       <button type="button" onClick={resetData}>Volver a tirar</button>

@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import Head from "next/head";
+import FormData from 'form-data';
 import Link from "next/link";
 import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, InputAdornment} from '@mui/material'
 import { styled } from '@mui/material/styles';
@@ -75,6 +77,10 @@ function UploadFile() {
   };
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Rolemaster - Subir archivo</title>
+      </Head>
+
 
       <div className={styles.home_btn}>
         <Link href='/'>🏠</Link>
