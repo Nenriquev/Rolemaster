@@ -1,6 +1,7 @@
   import { useState } from "react"
   import { Button } from "@mui/material"
   import verify from "./Magicals"
+  import styles from '../../styles/home.module.css'
 
   
   
@@ -53,7 +54,7 @@ const Critical = (props) => {
   }
   
   return (
-    <div>
+    <div className={styles.container_description}>
       <form id="critical" onSubmit={handleSubmitCritical}>
         <label>Critico 1<input onChange={handleCriticalData} type="text" id="critical" name="critical"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #1</Button>

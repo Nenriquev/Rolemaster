@@ -227,7 +227,7 @@ const sheetVerify = async (worksheet, category) => {
     }
 
 
-    case 'modificadores_alcance':
+    case 'modificadores alcance':
 
       if(renameHeader[0] == 'arma' && renameHeader[1] == 'a') {
 
@@ -243,19 +243,19 @@ const sheetVerify = async (worksheet, category) => {
           i: {start: 111, end: 120}
         }
 
-        const arrayOfBonuses = newSheet.map(objeto => {
+        const arrayOfBonuses = newSheet.map(object => {
           const bonus = [];
         
-          for (const propiedad in objeto) {
-            if (propiedad !== 'arma') {
+          for (const property in object) {
+            if (property !== 'arma') {
               bonus.push({
-                start: values[propiedad].start,
-                end: values[propiedad].end,
-                bonus: objeto[propiedad]
+                start: values[property].start,
+                end: values[property].end,
+                bonus: object[property]
               });
             }
           }
-        return {weapon: objeto.arma, bonus: bonus}
+        return {weapon: object.arma, bonus: bonus}
         })
 
         const verifyIfExist = await Distance_bonus.count()

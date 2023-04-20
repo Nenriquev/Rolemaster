@@ -105,7 +105,7 @@ function UploadFile() {
             <MenuItem value={'armas'}>Armas</MenuItem>
             <MenuItem value={'criticos'}>Criticos</MenuItem>
             <MenuItem value={'pifias'}>Pifias</MenuItem>
-            <MenuItem value={'modificadores_alcance'}>Modificadores por alcance</MenuItem>
+            <MenuItem value={'modificadores alcance'}>Modificadores por alcance</MenuItem>
           </Select>
         </FormControlStyle>
       </Box>
@@ -148,3 +148,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
     
     
   }))
+
+
+
+  

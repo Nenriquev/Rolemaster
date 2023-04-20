@@ -117,10 +117,10 @@ module.exports = {
   },
 
   criticals: async = (attackRoll, roll, criatureSize, weapon_type) => {
-    const criticalRoll = typeof roll == 'number' ? roll : 0
+    
+    const criticalRoll = isNaN(roll) ? 0 : roll
     const result = []
 
-    console.log(criticalRoll)
 
     return new Promise((resolve, reject) => {
 

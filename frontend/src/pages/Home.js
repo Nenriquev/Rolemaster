@@ -103,52 +103,51 @@ const Home = () => {
       <Head>
         <title>Rolemaster</title>
       </Head>
-
-      <h1>HOME</h1>
-      <Link href='/uploadFile'>Subir un archivo</Link>
-      <button type="button" onClick={resetData}>Volver a tirar</button>
-      <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
+      
+      <div className={styles.col}>
+        <h1>HOME</h1>
+        <Link href='/uploadFile'>Subir un archivo</Link>
+        <button type="button" onClick={resetData}>Volver a tirar</button>
+        <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         
-        <div className={styles.input__container}>
-          <InputRoll onChange={handleData} name={data.tirada}/>
-          <ArmorInput onChange={handleData} name={data.armadura}/>
-        </div>
-
-        <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
-
-
-        { 
-          weapons.data && weapons.data.length > 0 ? 
-          <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : '' 
-        } 
-
-          <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
+          <div className={styles.input__container}>
+            <InputRoll onChange={handleData} name={data.tirada}/>
+            <ArmorInput onChange={handleData} name={data.armadura}/>
+          </div>
+          <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
+          {
+            weapons.data && weapons.data.length > 0 ?
+            <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : ''
+          }
+            <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
         
-        { 
-          data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? 
-          <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
-        }
-          
+          {
+            data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
+            <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
+          }
+        
+          {
+            selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
+            ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
+          }
+        
+        
+          <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
+        </form>
+        <h2>{status.result}</h2>
+      </div>
+
+
+      <div className={styles.col}>
+        
         {
-          selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> : 
-          ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
+          critical && typeof(critical.result) != 'number' ?
+          
+            <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
+          
+            : ''
         }
-        
-        
-
-
-        <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
-      </form>
-
-
-      <h2>{status.result}</h2>
-      {
-        critical && typeof(critical.result) != 'number' ? 
-        <div className="container-description">
-          <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
-        </div>
-          : ''
-      }
+      </div>
     </div>
   );
 }
