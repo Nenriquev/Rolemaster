@@ -27,6 +27,34 @@ body {
  background-size: cover;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: none;
+    scrollbar-color: #701010 #666666;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #666666;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #701010;
+    border-radius: 15px;
+    border: 1px none #ffffff;
+  }
+
 a {
   color: inherit;
   text-decoration: none;

@@ -4,6 +4,7 @@ import styles from '../../styles/components.module.css'
 import { GiSwitchWeapon } from "react-icons/gi";
 
 
+
 const WeaponType = (props) => {
     
     return(
@@ -19,6 +20,7 @@ const WeaponType = (props) => {
              <GiSwitchWeapon className={styles.icons}/> 
             </InputAdornment>
           }
+          MenuProps={MenuProps}
         >
           <MenuItem value={'1 mano'}>1 Mano</MenuItem>
           <MenuItem value={'contundentes'}>Contundentes</MenuItem>
@@ -48,3 +50,12 @@ const FormControlStyle = styled(FormControl)((props) => ({
       }, 
   
     }))
+
+    const MenuProps = {
+      PaperProps: {
+       style: {
+         backgroundColor: '#b65d32'
+       },
+     }, 
+    };
+    

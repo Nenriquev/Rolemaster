@@ -8,7 +8,7 @@ import WeaponCriatureType from "./HomeComponents/WeaponCriatureType";
 import LimitTypeInput from "./HomeComponents/LimitTypeInput";
 import InputRoll from "./HomeComponents/InputRoll";
 import ArmorInput from "./HomeComponents/ArmorInput";
-import styles from '../styles/home.module.css'
+import styles from '../styles/Home.module.css'
 import WeaponType from "./HomeComponents/WeaponType";
 import Head from "next/head";
  

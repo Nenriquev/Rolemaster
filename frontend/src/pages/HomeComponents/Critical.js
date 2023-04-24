@@ -10,7 +10,7 @@ const Critical = (props) => {
 
   const [criticalData, setCriticalData] = useState([])
   const [description, setDescription] = useState('')
-  const attack = props.critical.result
+  const attack = props?.critical?.result
   const type = props?.critical?.data?.tipo
   const weapon = props.critical?.data?.arma
   const criature = props?.criature?.type

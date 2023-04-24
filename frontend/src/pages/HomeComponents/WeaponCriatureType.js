@@ -4,6 +4,8 @@ import styles from '../../styles/components.module.css'
 import { GiMagicAxe } from "react-icons/gi";
 
 
+
+
 const WeaponCriatureType = (props) => {
   
   return (
@@ -21,6 +23,7 @@ const WeaponCriatureType = (props) => {
                    <GiMagicAxe className={styles.icons}/>
                   </InputAdornment>
                 }
+                MenuProps={MenuProps}
               > 
                   <MenuItem value={''}>Sin especificar</MenuItem>
                   <MenuItem value={'normal'}>Normal</MenuItem>
@@ -35,6 +38,12 @@ const WeaponCriatureType = (props) => {
               value={props.name ?? ''}
               label="Tipo de Arma"
               onChange={props.onChange}
+              startAdornment={
+                <InputAdornment position="start">
+                 <GiMagicAxe className={styles.icons}/>
+                </InputAdornment>
+              }
+              MenuProps={MenuProps}
             > 
                 <MenuItem value={''}>Sin especificar</MenuItem>
                 <MenuItem value={'normal'}>Normal</MenuItem>
@@ -68,3 +77,11 @@ const FormControlStyle = styled(FormControl)((props) => ({
     
     
   }))
+
+  const MenuProps = {
+    PaperProps: {
+     style: {
+       backgroundColor: '#b65d32'
+     },
+   }, 
+  };

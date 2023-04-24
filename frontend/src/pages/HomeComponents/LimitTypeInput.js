@@ -26,6 +26,7 @@ const LimitTypeInput = (props) => {
              {props.type === 'animales' ? <GiPaw className={styles.icons}/> : <GiNinjaHeroicStance className={styles.icons}/>} 
             </InputAdornment>
           }
+          MenuProps={MenuProps}
         >
           <MenuItem value={''}>Sin especificar</MenuItem>
           {
@@ -64,7 +65,13 @@ const FormControlStyle = styled(FormControl)((props) => ({
       transform: 'translate(14px, -9px) scale(0.75)',
       transition: ".4s cubic-bezier(.25,.8,.5,1)"
     }, 
-
-    
-    
   }))
+
+
+  const MenuProps = {
+    PaperProps: {
+     style: {
+       backgroundColor: '#b65d32'
+     },
+   }, 
+  };

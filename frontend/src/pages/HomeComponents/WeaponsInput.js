@@ -3,11 +3,12 @@ import styles from '../../styles/components.module.css'
 import { GiSharpAxe } from "react-icons/gi";
 import { styled } from '@mui/material/styles';
 
+
+
 const WeaponsInput = (props) => {
 
   return (
     <div className={styles.input__layout}>
-      
       
         <FormControlStyle variant="filled" className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
           <InputLabel>Arma</InputLabel>
@@ -21,6 +22,7 @@ const WeaponsInput = (props) => {
                   <GiSharpAxe className={styles.icons}/>
                 </InputAdornment>
               }
+              MenuProps={MenuProps}
             >
               {props.weapons.map((item, index) => {
             return ( <MenuItem key={index} value={item.arma}>{item.arma}</MenuItem> )
@@ -50,6 +52,12 @@ const FormControlStyle = styled(FormControl)((props) => ({
       transition: ".4s cubic-bezier(.25,.8,.5,1)"
     }, 
 
-    
-    
   }))
+
+  const MenuProps = {
+    PaperProps: {
+     style: {
+       backgroundColor: '#b65d32'
+     },
+   }, 
+  };

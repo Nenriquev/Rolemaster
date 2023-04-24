@@ -89,6 +89,7 @@ module.exports = {
         }
       }
     ]).then(response => {
+      
       if(response.length > 0 && response[0].tirada != null) {
         const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
@@ -107,7 +108,6 @@ module.exports = {
     
 
     const pifiaRoll = isNaN(roll) ? 0 : roll
-    
 
     return new Promise((resolve, reject) => {
       Pifias.find({

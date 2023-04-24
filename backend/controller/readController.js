@@ -8,6 +8,7 @@ module.exports = {
 
   read: async (req, res) => {
 
+
     let tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
     const limit = req.body.limite ?? ''
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : '0'
