@@ -15,7 +15,7 @@ const InputRoll = (props) => {
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name ?? ''} name='tirada' label="Tirada" variant="outlined" InputProps={{ startAdornment: 
+                <TextField onChange={props.onChange} value={props.name ?? ''} name='tirada' label="Tirada" variant="filled" InputProps={{ startAdornment: 
                     <InputAdornment position="start" required>
                       <GiPerspectiveDiceSixFacesThree className={styles.icons}/>
                     </InputAdornment>

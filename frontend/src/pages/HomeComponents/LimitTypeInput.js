@@ -14,7 +14,7 @@ const LimitTypeInput = (props) => {
   
   return (
     <div>
-    <FormControlStyle className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+    <FormControlStyle variant="filled" className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
         <InputLabel>Tipo de limite</InputLabel>
         <Select
           name="limite"

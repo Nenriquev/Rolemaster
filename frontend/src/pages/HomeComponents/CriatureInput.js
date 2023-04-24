@@ -8,7 +8,7 @@ const CriatureInput = (props) => {
   
   return (
     <div className={styles.input__layout}>
-    <FormControlStyle className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+    <FormControlStyle variant="filled" className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
         <InputLabel>Tipo de criatura</InputLabel>
         <Select
           name="criatura"

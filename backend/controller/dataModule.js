@@ -6,6 +6,7 @@ const Limites = require('../database/models/Limites');
 
 
 const reduceCritical = (criatura, response) => {
+  
   const criticals = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   const criature = Number(criatura);
   const attack = response;
@@ -50,7 +51,7 @@ module.exports = {
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
         const isNotPfifia = response[0]?.tirada[0] != 'F*'
 
-        if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia) {
+        if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia && response[0]?.tirada?.length > 0) {
           const result = reduceCritical(criatura, response[0]?.tirada[0])
           response[0].tirada[0] = result 
         }
@@ -102,13 +103,17 @@ module.exports = {
     }).catch(err => reject(err)))
   },
 
-  pifias: async = (type, tirada) => {
+  pifias: async = (type, roll) => {
+    
+
+    const pifiaRoll = isNaN(roll) ? 0 : roll
+    
 
     return new Promise((resolve, reject) => {
       Pifias.find({
         type: type,
-        start: { $lte: tirada },
-        end: { $gte: tirada },
+        start: { $lte: pifiaRoll },
+        end: { $gte: pifiaRoll },
       }).then(response => {
           resolve(response)
       }).catch(err => reject(err))

@@ -9,13 +9,12 @@ const WeaponsInput = (props) => {
     <div className={styles.input__layout}>
       
       
-        <FormControlStyle className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+        <FormControlStyle variant="filled" className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
           <InputLabel>Arma</InputLabel>
             <Select
               name="arma"
               value={props.name ?? ''}
               label="Arma"
-              variant="outlined"
               onChange={props.onChange}
               startAdornment={
                 <InputAdornment position="start">

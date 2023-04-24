@@ -7,7 +7,7 @@ import { GiSwitchWeapon } from "react-icons/gi";
 const WeaponType = (props) => {
     
     return(
-        <FormControlStyle className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}} }}>
+        <FormControlStyle variant="filled" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}} }}>
         <InputLabel>Tipo de arma</InputLabel>
         <Select
           value={props.selectedCategory?.weapon ?? ''} 

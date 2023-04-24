@@ -10,7 +10,7 @@ const ArmorInput = (props) => {
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name || ''} name='armadura' label="Armadura" variant="outlined" InputProps={{ startAdornment: 
+                <TextField onChange={props.onChange} value={props.name || ''} name='armadura' label="Armadura" variant="filled" InputProps={{ startAdornment: 
                     <InputAdornment position="start">
                       <GiChestArmor className={styles.icons}/>
                     </InputAdornment>

@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Dragon Hunter';
+  src: url('../../public/fonts/DragonHunter-9Ynxj.otf');
+}
+
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -27,7 +33,7 @@ a {
 }
 
 .box{
-  background-color: rgb(86, 86, 86);
+  background-color: rgba(87, 51, 0, 0.481);
   border-radius: 4px;
 }
 

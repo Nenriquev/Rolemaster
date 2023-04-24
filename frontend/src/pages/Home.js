@@ -95,18 +95,18 @@ const Home = () => {
     formRef.current.reset();
   }
 
-  console.log(data)
 
   return (
-
+    
     <div className={styles.App}>
       <Head>
         <title>Rolemaster</title>
       </Head>
+
+      
       
       <div className={styles.col}>
-        <h1>HOME</h1>
-        <Link href='/uploadFile'>Subir un archivo</Link>
+        <h1 className={styles.title}>HOME</h1>
         <button type="button" onClick={resetData}>Volver a tirar</button>
         <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         
@@ -134,10 +134,10 @@ const Home = () => {
         
           <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
         </form>
-        <h2>{status.result}</h2>
+        <h2 className={styles.title}>{status.result}</h2>
       </div>
 
-
+        
       <div className={styles.col}>
         
         {
@@ -145,7 +145,7 @@ const Home = () => {
           
             <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
           
-            : ''
+            : <h2 className={styles.title}>Esperando criticos...</h2>
         }
       </div>
     </div>
