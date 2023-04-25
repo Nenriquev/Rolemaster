@@ -8,7 +8,7 @@ import WeaponCriatureType from "./HomeComponents/WeaponCriatureType";
 import LimitTypeInput from "./HomeComponents/LimitTypeInput";
 import InputRoll from "./HomeComponents/InputRoll";
 import ArmorInput from "./HomeComponents/ArmorInput";
-import styles from '../styles/Home.module.css'
+import styles from '../styles/home.module.css'
 import WeaponType from "./HomeComponents/WeaponType";
 import Head from "next/head";
  
@@ -21,6 +21,7 @@ const Home = () => {
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const formRef = useRef();
+  const focusedRef = useRef()
  
 
   useEffect(() => {
@@ -54,6 +55,7 @@ const Home = () => {
     const message = await response.json()
     setStatus(message)
     if(message.result !== 'No se encontraron resultados'){
+      focusedRef.current.scrollIntoView()
       setCritical(message)
     }
   },[data, setCritical, setStatus])
@@ -134,21 +136,27 @@ const Home = () => {
         
           <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
         </form>
-        <h2 className={styles.title}>{status.result}</h2>
       </div>
 
         
-      <div className={styles.col}>
+      <div ref={focusedRef} tabIndex={0} className={styles.col}>
+
+      <div className={styles.col_container}>
+          <div>
+            <h2 className={styles.title}>{status.result}</h2>
+          </div>
         
-        {
-          critical && typeof(critical.result) != 'number' ?
-          
-            <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
-          
-            : <h2 className={styles.title}>Esperando criticos...</h2>
-        }
+            {
+              critical && typeof(critical.result) != 'number' ?
+        
+                <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
+        
+                : <h2 className={styles.title}>Esperando criticos...</h2>
+            }
+        </div>
       </div>
     </div>
+  
   );
 }
 

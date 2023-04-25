@@ -10,7 +10,7 @@
 .title{
   font-family: 'Dragon Hunter';
   width: 70%;
-  letter-spacing: 2px;
+  letter-spacing: 4px;
   text-align: center;
   margin: 8px auto;
   color: rgb(164, 14, 14);
@@ -25,7 +25,7 @@
 
 .form{
   margin: 0 auto;
-  width: 71%;
+  width: 74%;
 }
 
 
@@ -53,7 +53,15 @@
 
 
 .container_description{
-  width: 100%;
+  color: brown;
+  font-size: 13px;
+  width: 70%;
+  margin: 0 auto;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .container_description>form{
@@ -63,9 +71,21 @@
   align-items: center ;
 }
 
+.col_container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .input__container{
   display: flex;
   justify-content: space-between;
+}
+
+.description{
+  text-align: justify;
+  line-height: 15px;
 }
 
 
@@ -81,6 +101,7 @@
   .form {
     max-width: 42%;
    }
+
  }
  
  

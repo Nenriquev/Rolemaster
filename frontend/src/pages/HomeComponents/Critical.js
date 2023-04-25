@@ -56,24 +56,24 @@ const Critical = (props) => {
   return (
     <div className={styles.container_description}>
       <form id="critical" onSubmit={handleSubmitCritical}>
-        <label>Critico 1<input onChange={handleCriticalData} type="text" id="critical" name="critical"/></label>
+        <label>Critico 1<input onChange={handleCriticalData} type="number" id="critical" name="critical"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #1</Button>
-        <h2>{description?.critical?.critic}</h2>
+        <h2 className={styles.description}>{description?.critical?.critic}</h2>
       </form>
       {
          IsvalidCritical2 ? 
       <form id="critical2" onSubmit={handleSubmitCritical}>
-        <label>Critico 2<input onChange={handleCriticalData} type="text" name="critical2"/></label>
+        <label>Critico 2<input onChange={handleCriticalData} type="number" name="critical2"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #2</Button>
-        <h2>{description?.critical2?.critic}</h2>
+        <h2 className={styles.description}>{description?.critical2?.critic}</h2>
       </form> : ''
       }
       {
         IsvalidCritical3 ? 
       <form id="critical3" onSubmit={handleSubmitCritical}>
-        <label>Critico 3<input onChange={handleCriticalData} type="text" name="critical3"/></label>
+        <label>Critico 3<input onChange={handleCriticalData} type="number" name="critical3"/></label>
         <Button type='submit' variant="contained" color="success">Tirar critico #3</Button>
-        <h2>{description?.critical3?.critic}</h2>
+        <h2 className={styles.description}>{description?.critical3?.critic}</h2>
       </form> : ''
       }
       </div>
