@@ -234,7 +234,7 @@ const sheetVerify = async (worksheet, category) => {
         const values = {
           a: {start: 0, end: 3},
           b: {start: 4, end: 8},
-          c: {start: 9, end: 8},
+          c: {start: 9, end: 15},
           d: {start: 16, end: 30},
           e: {start: 31, end: 45},
           f: {start: 46, end: 60},

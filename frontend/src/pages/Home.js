@@ -142,16 +142,17 @@ const Home = () => {
       <div ref={focusedRef} tabIndex={0} className={styles.col}>
 
       <div className={styles.col_container}>
-          <div>
+          <div className={styles.row_title}>
             <h2 className={styles.title}>{status.result}</h2>
           </div>
         
             {
+              
               critical && typeof(critical.result) != 'number' ?
         
                 <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
         
-                : <h2 className={styles.title}>Esperando criticos...</h2>
+                : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
             }
         </div>
       </div>

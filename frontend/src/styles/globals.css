@@ -24,7 +24,7 @@ body {
 body {
  background-image: url('../../public/background.jpg');
  background-repeat: no-repeat;
- background-size: cover;
+ background-position: 66% 6%;
 }
 
 input::-webkit-outer-spin-button,
@@ -74,3 +74,15 @@ input:-webkit-autofill:focus {
 input[data-autocompleted] {
     background-color: transparent !important;
 }
+
+
+@media (min-width: 648px) {
+
+  body {
+    background-image: url('../../public/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+ 
+   
+ }
