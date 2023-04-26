@@ -108,34 +108,42 @@ const Home = () => {
       
       
       <div className={styles.col}>
-        <h1 className={styles.title}>HOME</h1>
-        <button type="button" onClick={resetData}>Volver a tirar</button>
-        <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-        
-          <div className={styles.input__container}>
-            <InputRoll onChange={handleData} name={data.tirada}/>
-            <ArmorInput onChange={handleData} name={data.armadura}/>
+
+        <div className={styles.col_container}>
+          <div className={styles.row_title}>
+            <h1 className={styles.title}>Rolemaster</h1>
           </div>
-          <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
-          {
-            weapons.data && weapons.data.length > 0 ?
-            <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : ''
-          }
-            <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
-        
-          {
-            data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
-            <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
-          }
-        
-          {
-            selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
-            ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
-          }
-        
-        
-          <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
-        </form>
+            <div className={styles.main_container}>
+              <div className={styles.form_container}>
+                <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
+                  <Button type="button" variant="contained" fullWidth onClick={resetData}>Volver a tirar</Button>
+                  <div className={styles.input__container}>
+                    <InputRoll onChange={handleData} name={data.tirada}/>
+                    <ArmorInput onChange={handleData} name={data.armadura}/>
+                  </div>
+                  <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
+                  {
+                    weapons.data && weapons.data.length > 0 ?
+                    <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : ''
+                  }
+                    <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
+          
+                  {
+                    data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
+                    <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
+                  }
+          
+                  {
+                    selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
+                    ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
+                  }
+          
+          
+                  <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
+                </form>
+              </div>
+            </div>
+        </div>
       </div>
 
         
@@ -145,15 +153,14 @@ const Home = () => {
           <div className={styles.row_title}>
             <h2 className={styles.title}>{status.result}</h2>
           </div>
-        
+
+          <div className={styles.main_container}>
             {
-              
               critical && typeof(critical.result) != 'number' ?
-        
                 <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
-        
                 : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
             }
+          </div>
         </div>
       </div>
     </div>
