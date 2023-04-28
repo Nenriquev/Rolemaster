@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
 mongoose.set('strictQuery', false);
@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/users', usersRouter);
 
 app.listen(() =>{
   console.log('Servidor corriendo')

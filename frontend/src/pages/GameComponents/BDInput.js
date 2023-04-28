@@ -8,18 +8,16 @@ import { GiPerspectiveDiceSixFacesThree } from "react-icons/gi";
 
 
 
-const InputRoll = (props) => {
-
-  
+const BDInput = (props) => {
 
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='tirada' label="Tirada" variant="filled" 
+                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='bd' label="B.D" variant="filled" 
+                inputProps={{
+                  inputMode:'numeric'
+                }}
                 InputProps={{ 
-                autoComplete: 'off',
-                pattern: '[0-9]*',
-                inputMode: 'numeric', 
                 startAdornment: 
                     <InputAdornment position="start" required>
                       <GiPerspectiveDiceSixFacesThree className={styles.icons}/>
@@ -33,7 +31,7 @@ const InputRoll = (props) => {
     
 }
 
-export default InputRoll;
+export default BDInput;
 
 
 const FormControlStyle = styled(FormControl)((props) => ({
@@ -54,5 +52,3 @@ const FormControlStyle = styled(FormControl)((props) => ({
     
     
   }))
-
-

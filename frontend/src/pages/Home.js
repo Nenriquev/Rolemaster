@@ -1,16 +1,19 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
-import {Button } from '@mui/material'
-import Critical from "./HomeComponents/Critical";
-import WeaponsInput from "./HomeComponents/WeaponsInput";
-import CriatureInput from "./HomeComponents/CriatureInput";
-import WeaponCriatureType from "./HomeComponents/WeaponCriatureType";
-import LimitTypeInput from "./HomeComponents/LimitTypeInput";
-import InputRoll from "./HomeComponents/InputRoll";
-import ArmorInput from "./HomeComponents/ArmorInput";
-import styles from '../styles/home.module.css'
-import WeaponType from "./HomeComponents/WeaponType";
 import Head from "next/head";
+import { Button } from '@mui/material'
+import Critical from "./GameComponents/Critical";
+import WeaponsInput from "./GameComponents/WeaponsInput";
+import CriatureInput from "./GameComponents/CriatureInput";
+import WeaponCriatureType from "./GameComponents/WeaponCriatureType";
+import LimitTypeInput from "./GameComponents/LimitTypeInput";
+import InputRoll from "./GameComponents/InputRoll";
+import ArmorInput from "./GameComponents/ArmorInput";
+import styles from '../styles/home.module.css'
+import WeaponType from "./GameComponents/WeaponType";
+import DistanceInput from "./GameComponents/DistanceInput";
+import BOInput from "./GameComponents/BOInput";
+import BDInput from "./GameComponents/BDInput";
  
 
 const Home = () => {
@@ -20,6 +23,7 @@ const Home = () => {
   const [critical, setCritical] = useState('');
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
+  const [weaponDistance, setWeaponDistance] = useState(false)
   const formRef = useRef();
   const focusedRef = useRef()
  
@@ -37,6 +41,20 @@ const Home = () => {
       .catch(error => console.log('error', error));
 
   }, [selectedCategory])
+
+  useEffect(() => {
+    var requestOptions = {
+      method: 'POST',
+      body: JSON.stringify({weapon: data.arma}), 
+      headers: { "Content-Type": "application/json" }   
+    };
+
+    fetch("http://localhost:3000/api/distances", requestOptions)
+      .then((response) => response.json())
+      .then((data) => setWeaponDistance(data))
+      .catch(error => console.log('error', error));
+
+  }, [data.arma])
 
   const handleSubmit = useCallback(async (e) => {
 
@@ -97,7 +115,6 @@ const Home = () => {
     formRef.current.reset();
   }
 
-
   return (
     
     <div className={styles.App}>
@@ -106,7 +123,7 @@ const Home = () => {
       </Head>
 
       
-      
+      <Link href='uploadFile'>Subir archivo</Link>
       <div className={styles.col}>
 
         <div className={styles.col_container}>
@@ -116,16 +133,29 @@ const Home = () => {
             <div className={styles.main_container}>
               <div className={styles.form_container}>
                 <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-                  <Button type="button" variant="contained" fullWidth onClick={resetData}>Volver a tirar</Button>
+                  
                   <div className={styles.input__container}>
                     <InputRoll onChange={handleData} name={data.tirada}/>
                     <ArmorInput onChange={handleData} name={data.armadura}/>
+                  </div>
+                  <div className={styles.input__container}>
+                    
+                    <BOInput onChange={handleData} name={data.bo}/>
+                    <BDInput onChange={handleData} name={data.bd}/>
                   </div>
                   <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
                   {
                     weapons.data && weapons.data.length > 0 ?
                     <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : ''
                   }
+
+                  {
+
+                    weaponDistance ? 
+                    <DistanceInput onChange={handleData} name={data.distancia} /> : ''
+          
+                  }
+                    
                     <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
           
                   {
@@ -140,6 +170,8 @@ const Home = () => {
           
           
                   <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
+
+                  <button type="button" onClick={resetData}>Volver a tirar</button>
                 </form>
               </div>
             </div>

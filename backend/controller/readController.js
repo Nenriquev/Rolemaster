@@ -1,5 +1,6 @@
 const Armas = require('../database/models/Armas') 
 const Criticos_secundarios = require('../database/models/Criticos_secundarios')
+const Distance_bonus = require('../database/models/Distance_bonus')
 const dataModule = require('../controller/dataModule') 
 
 
@@ -14,6 +15,7 @@ module.exports = {
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : '0'
     const criatura = req.body.criatura ?? ''
     const weaponKey = req?.body?.arma ?? ''
+    const distance = req.body.distancia ?? ''
     const pifia = await Armas.findOne({TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}, arma: weaponKey}, {TSM_pifias:{ $elemMatch:{pifia : tiradaSM}}})
     const specialAttack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
     
@@ -119,5 +121,17 @@ module.exports = {
     else {
       return res.json({ attack: false})
     }
-  }
+  },
+
+  getWeaponDistance: async (req, res) => {
+
+    const response = await Distance_bonus.findOne({weapon: req.body.weapon},'bonus')
+
+    if(response){
+      const verifyIfisProjectile = response?.bonus?.every(item => item.bonus === 'Fuera Rango')
+      return res.json(!verifyIfisProjectile)
+    } 
+    return res.json(false)
+    
+  },
 };
