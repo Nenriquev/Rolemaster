@@ -216,9 +216,18 @@ const sheetVerify = async (worksheet, category) => {
       if(verifyIfExist == 0){
        await Pifias.insertMany(data)
       }
-      else{
-        await Pifias.deleteMany({})
-        await Pifias.insertMany(data)
+      else {
+        data.forEach(async (element) => {
+          try {
+            await Pifias.updateMany(
+              { $or: [element] },
+              { $set: { type: element.type, start: element.start, end: element.end } },
+              { upsert: true }
+            );
+          } catch (err) {
+            console.log(err);
+          }
+        });
       }
       return true
     }

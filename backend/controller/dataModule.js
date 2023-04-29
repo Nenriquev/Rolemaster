@@ -106,7 +106,7 @@ module.exports = {
 
   pifias: async = (type, roll) => {
     
-
+    console.log(type, roll)
     const pifiaRoll = isNaN(roll) ? 0 : roll
 
     return new Promise((resolve, reject) => {
