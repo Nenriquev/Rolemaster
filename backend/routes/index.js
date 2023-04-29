@@ -30,6 +30,7 @@ router.post('/api/read', readController.read)
 router.post('/api/criticals', readController.getCriticals) 
 router.post('/api/magicals', readController.getMagicals)
 router.post('/api/weapontype', readController.getWeapons) 
+router.post('/api/distances', readController.getWeaponDistance) 
 
 
 
