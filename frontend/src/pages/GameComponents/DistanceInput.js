@@ -7,12 +7,14 @@ import { GiArrowScope } from "react-icons/gi";
 
 const DistanceInput = (props) => {
 
+  console.log(props.name)
+
     return(
         <div className={`${styles.input__layout} ${styles.input__display}`}>
           <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
             <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='distancia' label="Distancia" variant="filled" 
             inputProps={{
-                inputMode:'numeric'
+                inputMode:'numeric',
             }}
             InputProps={{ 
             startAdornment: 
