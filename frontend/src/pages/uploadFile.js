@@ -7,6 +7,8 @@ import { styled } from '@mui/material/styles';
 import styles from '../styles/uploadFile.module.css'  
 import { GiCloudUpload } from "react-icons/gi";
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
 
 function UploadFile() {
 
@@ -29,7 +31,7 @@ function UploadFile() {
       redirect: 'follow'
     };
     
-   const response = await fetch("http://localhost:3000/api/upload", requestOptions)
+   const response = await fetch(`${apiUrl}/api/upload`, requestOptions)
       .catch(error => console.log('error', error));
     const message = await response.json()
     setStatus(message)

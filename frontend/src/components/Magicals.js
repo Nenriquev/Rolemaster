@@ -1,4 +1,4 @@
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const verify = async (attack, id_target, weapon) => {
 
@@ -32,7 +32,7 @@ const verify = async (attack, id_target, weapon) => {
     },
   };
   
- const response = await fetch("http://localhost:3000/api/magicals", requestOptions)
+ const response = await fetch(`${apiUrl}/api/magicals`, requestOptions)
     .catch(error => console.log('error', error));
   const message = await response.json()
   return message

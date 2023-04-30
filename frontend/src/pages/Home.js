@@ -14,6 +14,8 @@ import WeaponType from "../components/WeaponType";
 import DistanceInput from "../components/DistanceInput";
 import BOInput from "../components/BOInput";
 import BDInput from "../components/BDInput";
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
  
 
 const Home = () => {
@@ -35,7 +37,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" }  
     };
 
-    fetch("http://localhost:3000/api/weapontype", requestOptions)
+    fetch(`${apiUrl}/api/weapontype`, requestOptions)
       .then((response) => response.json())
       .then((data) => setWeapons(data))
       .catch(error => console.log('error', error));
@@ -49,7 +51,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" }   
     };
 
-    fetch("http://localhost:3000/api/distances", requestOptions)
+    fetch(`${apiUrl}/api/distances`, requestOptions)
       .then((response) => response.json())
       .then((data) => setWeaponDistance(data))
       .catch(error => console.log('error', error));
@@ -68,7 +70,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" }  
     };
     
-   const response = await fetch("http://localhost:3000/api/read", requestOptions)
+   const response = await fetch(`${apiUrl}/api/read`, requestOptions)
       .catch(error => console.log('error', error));
     const message = await response.json()
     setStatus(message)
