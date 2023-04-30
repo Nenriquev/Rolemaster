@@ -26,6 +26,7 @@ const Home = () => {
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [weaponDistance, setWeaponDistance] = useState(false)
+  const [load, setLoad] = useState(false)
   const formRef = useRef();
   const focusedRef = useRef()
  
@@ -60,6 +61,8 @@ const Home = () => {
 
   const handleSubmit = useCallback(async (e) => {
 
+    setLoad(true)
+
     if(e){
       e.preventDefault()
     }
@@ -73,6 +76,9 @@ const Home = () => {
    const response = await fetch(`${apiUrl}/api/read`, requestOptions)
       .catch(error => console.log('error', error));
     const message = await response.json()
+    if(message){
+      setLoad(false)
+    }
     setStatus(message)
     if(message.result !== 'No se encontraron resultados'){
       focusedRef.current.scrollIntoView()
@@ -185,7 +191,7 @@ const Home = () => {
 
       <div className={styles.col_container}>
           <div className={styles.row_title}>
-            <h2 className={styles.title}>{status.result}</h2>
+            { load ? <h2>Cargando...</h2> : <h2 className={styles.title}>{status.result}</h2>}
           </div>
 
           <div className={styles.main_container}>
