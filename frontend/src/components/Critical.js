@@ -3,7 +3,7 @@
   import verify from "./Magicals"
   import styles from '../styles/home.module.css'
 
-  
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
   
 
 const Critical = (props) => {
@@ -40,7 +40,7 @@ const Critical = (props) => {
       body: formData,
     };
     
-   const response = await fetch("http://localhost:3000/api/criticals", requestOptions)
+   const response = await fetch(`${apiUrl}/api/criticals`, requestOptions)
       .catch(error => console.log('error', error));
     const message = await response.json()
     setDescription({...description, [e.target.id]: message})
