@@ -1,19 +1,20 @@
 var createError = require('http-errors');
 var express = require('express');
+require('dotenv').config()
 var path = require('path');
 var logger = require('morgan');
 var cors = require('cors')
 const fileUpload = require('express-fileupload')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
-
 var indexRouter = require('./routes/index');
 
 
 var app = express();
 mongoose.set('strictQuery', false);
 //mongodb://localhost:27017
-mongoose.connect('mongodb://127.0.0.1:27017/rolemaster_db',{useNewUrlParser: true})
+//mongodb://127.0.0.1:27017/rolemaster_db
+mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser: true})
     .then(()=> console.log('Base de datos conectada'))
     .catch(err => console.error(err))
 
