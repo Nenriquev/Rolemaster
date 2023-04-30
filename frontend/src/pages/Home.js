@@ -14,6 +14,7 @@ import WeaponType from "../components/WeaponType";
 import DistanceInput from "../components/DistanceInput";
 import BOInput from "../components/BOInput";
 import BDInput from "../components/BDInput";
+import Spinner from "@/components/partials/Spiner";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
  
@@ -61,8 +62,6 @@ const Home = () => {
 
   const handleSubmit = useCallback(async (e) => {
 
-    setLoad(true)
-
     if(e){
       e.preventDefault()
     }
@@ -73,22 +72,25 @@ const Home = () => {
       headers: { "Content-Type": "application/json" }  
     };
     
-   const response = await fetch(`${apiUrl}/api/read`, requestOptions)
-      .catch(error => console.log('error', error));
-    const message = await response.json()
-    if(message){
-      setLoad(false)
-    }
-    setStatus(message)
-    if(message.result !== 'No se encontraron resultados'){
+   const response = await fetch(`${apiUrl}/api/read`, requestOptions).catch(
+     (error) => console.log("error", error)
+   );
+   setLoad(true);
+   const responseData = await response.json();
+  
+    setStatus(responseData)
+    setLoad(false)
+    if(responseData.result !== 'No se encontraron resultados'){
       focusedRef.current.scrollIntoView()
-      setCritical(message)
+      setCritical(responseData)
     }
   },[data, setCritical, setStatus])
 
+
   useEffect(() => {
+    if(data.criatura || data.weapon_type || data.limite){
     handleSubmit()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
   },[data.criatura, data.weapon_type, data.limite])
 
 
@@ -185,13 +187,12 @@ const Home = () => {
             </div>
         </div>
       </div>
-
-        
+       
       <div ref={focusedRef} tabIndex={0} className={styles.col}>
-
+                  {console.log(load)}
       <div className={styles.col_container}>
           <div className={styles.row_title}>
-            { load ? <h2>Cargando...</h2> : <h2 className={styles.title}>{status.result}</h2>}
+            { load ? <Spinner/> : <h2 className={styles.title}>{status.result}</h2>}
           </div>
 
           <div className={styles.main_container}>

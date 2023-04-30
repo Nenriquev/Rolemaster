@@ -19,14 +19,17 @@ module.exports = {
     const specialAttack = await Armas.findOne({TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}, arma: weaponKey}, {TSM_ataques:{ $elemMatch:{tsm : tiradaSM}}})
     
 
-
       if(pifia){
        return res.json({result: 'Pifiaste', data: pifia.TSM_pifias[0]})
       }
 
       else if(specialAttack){
         const response = await dataModule.specialAttack(weaponKey, armour, criatura)
+        if(response && response[0].ataque?.length > 0){
         return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
+        } else {
+          return res.json({result: 'No se encontraron resultados'})
+        }
       } 
       
       else {
@@ -38,10 +41,13 @@ module.exports = {
 
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
         if(response && response[0]?.tirada?.length > 0){
+          console.log('hola')
           return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})
         }
         return res.json({result: 'No se encontraron resultados'})
        }
+
+
   },
 
   getCriticals: async (req, res) => {
