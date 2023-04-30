@@ -14,11 +14,12 @@ var app = express();
 mongoose.set('strictQuery', false);
 //mongodb://localhost:27017
 //mongodb://127.0.0.1:27017/rolemaster_db
-mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser: true})
+const mongo_url = process.env.DATABASE_URL
+mongoose.connect(mongo_url, { useNewUrlParser: true })
     .then(()=> console.log('Base de datos conectada'))
     .catch(err => console.error(err))
 
-
+    
 app.use(logger('dev'));
 app.use(express.json());
 app.use(cors())

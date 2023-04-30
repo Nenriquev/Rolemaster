@@ -35,7 +35,7 @@ const Home = () => {
       headers: { "Content-Type": "application/json" }  
     };
 
-    fetch("http://localhost:3000/api/weaponType", requestOptions)
+    fetch("http://localhost:3000/api/weapontype", requestOptions)
       .then((response) => response.json())
       .then((data) => setWeapons(data))
       .catch(error => console.log('error', error));
