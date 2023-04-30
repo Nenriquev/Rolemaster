@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, Select, InputAdornment, MenuItem } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { GiSwitchWeapon } from "react-icons/gi";
 
 

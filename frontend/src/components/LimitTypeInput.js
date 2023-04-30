@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, Select, MenuItem, InputAdornment } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { GiPaw, GiNinjaHeroicStance } from "react-icons/gi";
 
 const animales = ['pequeño', 'mediano', 'grande', 'super grande']

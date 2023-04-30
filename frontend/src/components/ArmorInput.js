@@ -1,5 +1,5 @@
 import {InputAdornment, FormControl, Select, MenuItem} from '@mui/material';
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiChestArmor } from "react-icons/gi";
 import { InputLabel } from '@mui/material';

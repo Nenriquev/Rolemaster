@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem, InputAdornment } from "@mui/material";
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { GiSharpAxe } from "react-icons/gi";
 import { styled } from '@mui/material/styles';
 

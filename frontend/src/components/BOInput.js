@@ -1,21 +1,19 @@
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiPerspectiveDiceSixFacesThree } from "react-icons/gi";
 
 
 
 
-const InputRoll = (props) => {
-
-  
+const BOInput = (props) => {
 
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='tirada' label="Tirada" variant="filled" 
+                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='bo' label="B.O" variant="filled" 
                 inputProps={{
                   inputMode:'numeric'
                 }}
@@ -33,7 +31,7 @@ const InputRoll = (props) => {
     
 }
 
-export default InputRoll;
+export default BOInput;
 
 
 const FormControlStyle = styled(FormControl)((props) => ({
@@ -54,5 +52,3 @@ const FormControlStyle = styled(FormControl)((props) => ({
     
     
   }))
-
-

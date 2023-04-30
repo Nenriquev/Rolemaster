@@ -2,18 +2,18 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Button } from '@mui/material'
-import Critical from "./GameComponents/Critical";
-import WeaponsInput from "./GameComponents/WeaponsInput";
-import CriatureInput from "./GameComponents/CriatureInput";
-import WeaponCriatureType from "./GameComponents/WeaponCriatureType";
-import LimitTypeInput from "./GameComponents/LimitTypeInput";
-import InputRoll from "./GameComponents/InputRoll";
-import ArmorInput from "./GameComponents/ArmorInput";
+import Critical from "../components/Critical";
+import WeaponsInput from "../components/WeaponsInput";
+import CriatureInput from "../components/CriatureInput";
+import WeaponCriatureType from "../components/WeaponCriatureType";
+import LimitTypeInput from "../components/LimitTypeInput";
+import InputRoll from "../components/InputRoll";
+import ArmorInput from "../components/ArmorInput";
 import styles from '../styles/home.module.css'
-import WeaponType from "./GameComponents/WeaponType";
-import DistanceInput from "./GameComponents/DistanceInput";
-import BOInput from "./GameComponents/BOInput";
-import BDInput from "./GameComponents/BDInput";
+import WeaponType from "../components/WeaponType";
+import DistanceInput from "../components/DistanceInput";
+import BOInput from "../components/BOInput";
+import BDInput from "../components/BDInput";
  
 
 const Home = () => {

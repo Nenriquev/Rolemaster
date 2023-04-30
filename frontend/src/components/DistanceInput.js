@@ -1,7 +1,7 @@
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
-import styles from '../../styles/components.module.css'
+import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiArrowScope } from "react-icons/gi";
 

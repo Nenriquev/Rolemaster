@@ -1,7 +1,7 @@
   import { useState } from "react"
   import { Button } from "@mui/material"
   import verify from "./Magicals"
-  import styles from '../../styles/home.module.css'
+  import styles from '../styles/home.module.css'
 
   
   
