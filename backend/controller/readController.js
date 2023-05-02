@@ -142,12 +142,8 @@ module.exports = {
   },
 
   getDistance: async (req, res) => {
-
-    console.log(req.body.distance)
     
     const distance = req.body.distance !== '' ? req.body.distance : ''
-
-    console.log(distance)
 
      const response = await Distance_bonus.findOne({ 
       weapon: req.body.weapon, 
