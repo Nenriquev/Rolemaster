@@ -125,6 +125,13 @@
   justify-content: space-between;
 }
 
+.helper__text{
+  color: red;
+  display: inline;
+  position: absolute;
+  transform: translate(3px, 3px);
+}
+
 .description{
   text-align: justify;
   line-height: 15px;

@@ -11,7 +11,7 @@ import { GiPerspectiveDiceSixFacesThree } from "react-icons/gi";
 const BOInput = (props) => {
 
     return(
-            <div className={`${styles.input__layout} ${styles.input__display}`}>
+            <div className={styles.input__display}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
                 <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='bo' label="B.O" variant="filled" 
                 inputProps={{
@@ -38,7 +38,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
   
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
-    transform: props.children.props.value ? '' : 'translate(50px, 15px) scale(1)',
+    transform: props.children.props.value ? 'translate(17px, 3px) scale(0.75)' : 'translate(50px, 15px) scale(1)',
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     zIndex: '0',
     },

@@ -44,7 +44,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
   
   
     '& .MuiFormLabel-root.MuiInputLabel-root': { 
-      transform: props.children[1].props.value ? '' : 'translate(50px, 15px) scale(1)', 
+      transform: props.children[1].props.value ? 'translate(17px, 3px) scale(0.75)' : 'translate(40px, 15px) scale(1)', 
       transition: ".4s cubic-bezier(.25,.8,.5,1)",
       zIndex: '0'
       },

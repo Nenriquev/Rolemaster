@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiPerspectiveDiceSixFacesThree } from "react-icons/gi";
+import ErrorIcon from '@mui/icons-material/Error';
 
 
 
@@ -16,13 +17,14 @@ const InputRoll = (props) => {
             <div className={`${styles.input__layout} ${styles.input__display}`}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
                 <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='tirada' label="Tirada" variant="filled" 
+                error={props.error}
                 inputProps={{
                   inputMode:'numeric'
                 }}
                 InputProps={{ 
                 startAdornment: 
                     <InputAdornment position="start" required>
-                      <GiPerspectiveDiceSixFacesThree className={styles.icons}/>
+                      {props.error ? <ErrorIcon className={styles.error__icon}/> : <GiPerspectiveDiceSixFacesThree className={styles.icons}/>}
                     </InputAdornment>
                 }}/>
                 
@@ -40,7 +42,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
   
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
-    transform: props.children.props.value ? '' : 'translate(50px, 15px) scale(1)',
+    transform: props.children.props.value ? 'translate(17px, 3px) scale(0.75)' : 'translate(50px, 15px) scale(1)',
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     zIndex: '0',
     },
@@ -50,6 +52,10 @@ const FormControlStyle = styled(FormControl)((props) => ({
       transition: ".4s cubic-bezier(.25,.8,.5,1)",
       color: 'yellow'
     },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-error':{
+      color: '#af0303'
+    }
 
     
     

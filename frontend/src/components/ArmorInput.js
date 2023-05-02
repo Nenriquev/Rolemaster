@@ -3,6 +3,7 @@ import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiChestArmor } from "react-icons/gi";
 import { InputLabel } from '@mui/material';
+import ErrorIcon from '@mui/icons-material/Error';
 
 
 const armour = ['ta1','ta2','ta3','ta4','ta5','ta6','ta7','ta8','ta9','ta10','ta11','ta12','ta13','ta14','ta15','ta16','ta17','ta18','ta19','ta20']
@@ -21,7 +22,13 @@ const MenuProps = {
 const ArmorInput = (props) => {
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
-              <FormControlStyle variant="filled" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+              <FormControlStyle 
+                variant="filled" 
+                error={props.error}
+                className="box" 
+                sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}
+              >
+                    
                 <InputLabel>Armadura</InputLabel>
                 <Select
                   name="armadura"
@@ -30,7 +37,7 @@ const ArmorInput = (props) => {
                   onChange={props.onChange}
                   startAdornment={
                     <InputAdornment position="start">
-                      <GiChestArmor className={styles.icons}/>
+                       {props.error ? <ErrorIcon className={styles.error__icon}/> : <GiChestArmor className={styles.icons}/>}
                     </InputAdornment>
                   }
                   MenuProps={MenuProps}
@@ -38,8 +45,9 @@ const ArmorInput = (props) => {
                 <MenuItem value={''}>Sin especificar</MenuItem>
                 {
                   armour.map((element, index) => {
+                    const menuItem = element.toLocaleUpperCase()
                     return (
-                      <MenuItem key={index} value={element}>{element}</MenuItem>
+                      <MenuItem key={index} value={element}>{menuItem}</MenuItem>
                     )
                   })
                 }
@@ -57,7 +65,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
   
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
-    transform: props.children[1].props.value == '' ? 'translate(42px, 15px) scale(1)' : '',
+    transform: props.children[1].props.value == '' ? 'translate(42px, 15px) scale(1)' : 'translate(17px, 3px) scale(0.75)',
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     zIndex: '0',
     },
@@ -66,6 +74,11 @@ const FormControlStyle = styled(FormControl)((props) => ({
       transform: 'translate(14px, -9px) scale(0.75)',
       transition: ".4s cubic-bezier(.25,.8,.5,1)"
     },
+
+    '& .MuiFormLabel-root.MuiInputLabel-root.Mui-error':{
+      color: '#af0303'
+    }
+
 
     
   }))

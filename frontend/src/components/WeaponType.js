@@ -8,6 +8,7 @@ import { GiSwitchWeapon } from "react-icons/gi";
 const WeaponType = (props) => {
     
     return(
+      <div className={styles.input__layout}>
         <FormControlStyle variant="filled" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}} }}>
         <InputLabel>Tipo de arma</InputLabel>
         <Select
@@ -29,6 +30,7 @@ const WeaponType = (props) => {
           <MenuItem value={'artes marciales'}>Artes marciales</MenuItem>
         </Select>
       </FormControlStyle>
+      </div>
     )
 }
 
@@ -39,7 +41,7 @@ export default WeaponType;
 const FormControlStyle = styled(FormControl)((props) => ({
   
     '& .MuiFormLabel-root.MuiInputLabel-root': { 
-      transform: props.children[1].props.value ? '' : 'translate(50px, 15px) scale(1)', 
+      transform: props.children[1].props.value ? 'translate(17px, 3px) scale(0.75)' : 'translate(50px, 15px) scale(1)', 
       transition: ".4s cubic-bezier(.25,.8,.5,1)",  
       zIndex: '0'
       },

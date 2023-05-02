@@ -15,8 +15,10 @@ import DistanceInput from "../components/DistanceInput";
 import BOInput from "../components/BOInput";
 import BDInput from "../components/BDInput";
 import Spinner from "@/components/partials/Spiner";
+import validator from "@/components/js/validator";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
  
 
 const Home = () => {
@@ -26,7 +28,8 @@ const Home = () => {
   const [critical, setCritical] = useState('');
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
-  const [weaponDistance, setWeaponDistance] = useState(false)
+  const [weaponDistance, setWeaponDistance] = useState(false);
+  const [errors, setErrors] = useState({})
   const [load, setLoad] = useState(false)
   const formRef = useRef();
   const focusedRef = useRef()
@@ -62,28 +65,35 @@ const Home = () => {
 
   const handleSubmit = useCallback(async (e) => {
 
+    setErrors(validator(data))
+
+
     if(e){
       e.preventDefault()
     }
+
     
     var requestOptions = {
       method: 'POST',
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }  
     };
+
+    setLoad(true);
     
    const response = await fetch(`${apiUrl}/api/read`, requestOptions).catch(
      (error) => console.log("error", error)
    );
-   setLoad(true);
    const responseData = await response.json();
   
     setStatus(responseData)
-    setLoad(false)
+   
     if(responseData.result !== 'No se encontraron resultados'){
       focusedRef.current.scrollIntoView()
       setCritical(responseData)
     }
+
+    setLoad(false)
   },[data, setCritical, setStatus])
 
 
@@ -101,6 +111,7 @@ const Home = () => {
     }
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
+    setErrors(prevState => ({...prevState, [name]: false}))
   }
 
 
@@ -114,7 +125,10 @@ const Home = () => {
       criatura: '',
       weapon_type: '',
       limite: '',
+      distance:''
     }));
+    setErrors(prevState => ({...prevState, arma: false}))
+    
   }
 
   const resetData = () => {
@@ -122,6 +136,7 @@ const Home = () => {
     setData('')
     setCritical('')
     setStatus('')
+    setErrors('')
     formRef.current.reset();
   }
 
@@ -145,29 +160,28 @@ const Home = () => {
                 <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
                   
                   <div className={styles.input__container}>
-                    <InputRoll onChange={handleData} name={data.tirada}/>
-                    <ArmorInput onChange={handleData} name={data.armadura}/>
+                    <InputRoll onChange={handleData} name={data.tirada} error={errors.tirada}/>
+                    <ArmorInput onChange={handleData} name={data.armadura} error={errors.armadura}/>
                   </div>
                   <div className={styles.input__container}>
-                    
                     <BOInput onChange={handleData} name={data.bo}/>
                     <BDInput onChange={handleData} name={data.bd}/>
                   </div>
                   <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
+                  
                   {
                     weapons.data && weapons.data.length > 0 ?
-                    <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma}/> : ''
+                    <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/> : ''
                   }
-
+                  
                   {
-
-                    weaponDistance ? 
-                    <DistanceInput onChange={handleData} name={data.distancia} /> : ''
-          
+                    
+                    weaponDistance.isWeaponDistance ? 
+                    <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
                   }
+
                     
                     <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
-          
                   {
                     data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
                     <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
@@ -179,7 +193,7 @@ const Home = () => {
                   }
           
           
-                  <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Tirar</Button>
+                  <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Obtener resultado</Button>
 
                   <button type="button" onClick={resetData}>Volver a tirar</button>
                 </form>
@@ -189,7 +203,7 @@ const Home = () => {
       </div>
        
       <div ref={focusedRef} tabIndex={0} className={styles.col}>
-                  {console.log(load)}
+                  
       <div className={styles.col_container}>
           <div className={styles.row_title}>
             { load ? <Spinner/> : <h2 className={styles.title}>{status.result}</h2>}

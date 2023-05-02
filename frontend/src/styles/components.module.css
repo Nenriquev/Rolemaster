@@ -8,6 +8,16 @@ margin: 5px 0px;
   width: 48%;
 }
 
+.input__distance_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input__distance_display{
+  width: 60%;
+}
+
 
 .icons{
 color: rgb(104, 77, 33);
@@ -16,6 +26,18 @@ stroke-width: 5px;
 font-size: 24px;    
 transform: translate(0px, -6px)
 }
+
+.error__icon{
+  transform: translate(0px, -6px);
+  stroke: rgba(14, 1, 1, 0.585);
+  stroke-width: 0.5px;
+  color: #af0303;
+}
+
+.spinner{
+  filter: drop-shadow(0px 0px 3px #0000009b);
+}
+
 
 
 

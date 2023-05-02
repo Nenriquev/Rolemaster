@@ -10,5 +10,5 @@ weapon: {
 bonus: [BonusSchema]
 
 });
-const Distance_table = mongoose.model("Distance_bonus", Distance_bonus);
+const Distance_table = mongoose.model("Distances_bonus", Distance_bonus);
 module.exports = Distance_table;

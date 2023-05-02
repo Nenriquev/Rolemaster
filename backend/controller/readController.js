@@ -8,6 +8,7 @@ const dataModule = require('../controller/dataModule')
 module.exports = {
 
   read: async (req, res) => {
+
     
     let tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
     const limit = req.body.limite ?? ''
@@ -134,9 +135,34 @@ module.exports = {
 
     if(response){
       const verifyIfisProjectile = response?.bonus?.every(item => item.bonus === 'Fuera Rango')
-      return res.json(!verifyIfisProjectile)
+      return res.json({isWeaponDistance: !verifyIfisProjectile, weaponDistance: !this.isWeaponDistance ? response.bonus : null })
     } 
     return res.json(false)
     
   },
+
+  getDistance: async (req, res) => {
+
+    console.log(req.body.distance)
+    
+    const distance = req.body.distance !== '' ? req.body.distance : ''
+
+    console.log(distance)
+
+     const response = await Distance_bonus.findOne({ 
+      weapon: req.body.weapon, 
+      bonus: { 
+        $elemMatch: { 
+          start: { $lte: distance}, 
+          end: { $gte: distance } 
+        } 
+      } 
+    },{ "bonus.$": 1 }) 
+
+    if(response && response.bonus.length > 0){
+      return res.json({bonus: response.bonus[0].bonus})
+    }
+
+    return res.json({bonus: 'Fuera de rango'})
+  }
 };
