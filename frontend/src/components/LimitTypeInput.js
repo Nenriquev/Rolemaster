@@ -14,9 +14,10 @@ const LimitTypeInput = (props) => {
   
   return (
     <div>
-    <FormControlStyle variant="filled" className='box' sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+    <FormControlStyle variant="filled" className='box' sx={{width: '100%'}}>
         <InputLabel>Tipo de limite</InputLabel>
         <Select
+          sx={{":before": { borderBottomColor: "#701010" },":after": { borderBottomColor: "#701010" }}}
           name="limite"
           value={props.name ?? ''}
           label="Tipo de limite"
@@ -63,7 +64,8 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
       transform: 'translate(14px, -9px) scale(0.75)',
-      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+      transition: ".4s cubic-bezier(.25,.8,.5,1)",
+      color: '#A40000'
     }, 
   }))
 

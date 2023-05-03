@@ -19,12 +19,13 @@ import validator from "@/components/js/validator";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
+
  
 
 const Home = () => {
 
   const [status, setStatus] = useState('');
-  const [data, setData] = useState('');
+  const [data, setData] = useState({});
   const [critical, setCritical] = useState('');
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
@@ -33,6 +34,7 @@ const Home = () => {
   const [load, setLoad] = useState(false)
   const formRef = useRef();
   const focusedRef = useRef()
+
  
 
   useEffect(() => {
@@ -72,7 +74,6 @@ const Home = () => {
       e.preventDefault()
     }
 
-    
     var requestOptions = {
       method: 'POST',
       body: JSON.stringify(data),
@@ -80,13 +81,11 @@ const Home = () => {
     };
 
     setLoad(true);
-    
-   const response = await fetch(`${apiUrl}/api/read`, requestOptions).catch(
-     (error) => console.log("error", error)
-   );
-   const responseData = await response.json();
-  
-    setStatus(responseData)
+
+    try{
+      const response = await fetch(`${apiUrl}/api/read`, requestOptions)
+      const responseData = await response.json();
+      setStatus(responseData)
    
     if(responseData.result !== 'No se encontraron resultados'){
       focusedRef.current.scrollIntoView()
@@ -94,6 +93,13 @@ const Home = () => {
     }
 
     setLoad(false)
+    }
+    catch(error){
+      console.log(error)
+    }
+   
+  
+    
   },[data, setCritical, setStatus])
 
 

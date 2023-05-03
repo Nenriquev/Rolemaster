@@ -31,48 +31,62 @@ const DistanceInput = (props) => {
 
   },[props.distance])
 
-    return(
+    return (
       <div className={styles.input__distance_container}>
         <div className={styles.input__distance_display}>
-          <FormControlStyle 
-            variant="filled" 
+          <FormControlStyle
+            variant="filled"
             error={props.error}
-            className="box" 
-            sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-
+            className="box"
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": { borderColor: "orange" },
+              },
+            }}
+          >
             <InputLabel>Distancia</InputLabel>
             <Select
-                  name="distance"
-                  value={props.distance ?? ''}
-                  defaultValue={''}
-                  label="Distancia"
-                  onChange={props.onChange}
-                  startAdornment={
-                    <InputAdornment position="start">
-                       {props.error ? <ErrorIcon className={styles.error__icon}/> : <GiArrowScope className={styles.icons}/>}
-                    </InputAdornment>
-                  }
-                  MenuProps={MenuProps}
-              >
-                <MenuItem value={''}>Sin especificar</MenuItem>
-                {
-                  props.weaponDistance.map((element, index) => {
-                    return(
-                      <MenuItem key={index} value={element.start}>{`${element.start} mts - ${element.end} mts ~ [ ${element.bonus} ]`}</MenuItem>
-                    )
-                  })
-                }
-              </Select>
-
-               
-          </FormControlStyle>  
-      
+              sx={{":before": { borderBottomColor: "#701010" },":after": { borderBottomColor: "#701010" }}}
+              name="distance"
+              value={props.distance ?? ""}
+              defaultValue={""}
+              label="Distancia"
+              onChange={props.onChange}
+              startAdornment={
+                <InputAdornment position="start">
+                  {props.error ? (
+                    <ErrorIcon className={styles.error__icon} />
+                  ) : (
+                    <GiArrowScope className={styles.icons} />
+                  )}
+                </InputAdornment>
+              }
+              MenuProps={MenuProps}
+            >
+              <MenuItem value={""}>Sin especificar</MenuItem>
+              {props.weaponDistance.map((element, index) => {
+                return (
+                  <MenuItem
+                    key={index}
+                    value={element.start}
+                  >{`${element.start} mts - ${element.end} mts ~ [ ${element.bonus} ]`}</MenuItem>
+                );
+              })}
+            </Select>
+          </FormControlStyle>
         </div>
         <div className={styles.input__distance_display}>
-          {load ? <Spinner/> : <h2 style={{color:'rgb(164, 14, 14)', textAlign:'center'}}>{distance.bonus}</h2>}
+          {load ? (
+            <Spinner />
+          ) : (
+            <h2 style={{ color: "rgb(164, 14, 14)", textAlign: "center" }}>
+              {distance.bonus}
+            </h2>
+          )}
         </div>
       </div>
-      );
+    );
 
 
 }
@@ -89,7 +103,7 @@ const FormControlStyle = styled(FormControl)((props)  => ({
       '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
         transform: 'translate(14px, -9px) scale(0.75)',
         transition: ".4s cubic-bezier(.25,.8,.5,1)",
-        color: 'yellow',
+        color: '#A40000'
       }, 
     }))
     
