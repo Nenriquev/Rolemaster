@@ -26,11 +26,13 @@ const ArmorInput = (props) => {
                 variant="filled" 
                 error={props.error}
                 className="box" 
-                sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}
+                sx={{width: '100%'}}
+
               >
                     
                 <InputLabel>Armadura</InputLabel>
                 <Select
+                  sx={{':before': { borderBottomColor: '#701010' }, ':after': { borderBottomColor: '#701010' },}}
                   name="armadura"
                   value={props.name ?? ''}
                   label="Armadura"
@@ -72,8 +74,16 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
       transform: 'translate(14px, -9px) scale(0.75)',
-      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+      transition: ".4s cubic-bezier(.25,.8,.5,1)",
+      color: '#A40000'
     },
+
+    '& .MuiFilledInput-root & fieldset':{
+      
+    },
+
+    
+
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-error':{
       color: '#af0303'

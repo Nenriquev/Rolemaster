@@ -15,9 +15,16 @@ const InputRoll = (props) => {
 
     return(
             <div className={`${styles.input__layout} ${styles.input__display}`}>
-              <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+              <FormControlStyle variant="standard" className="box" sx={{width: '100%' }}>
                 <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='tirada' label="Tirada" variant="filled" 
                 error={props.error}
+                sx={{
+                  '& .MuiFilledInput-underline:before': { borderBottomColor: '#701010' },
+                  '& .MuiFilledInput-underline:after': { borderBottomColor: '#701010' },
+                }}
+                onInput = {(e) =>{
+                  e.target.value = e.target.value != '' ? Math.max(0, parseInt(e.target.value) ).toString().slice(0,3) : ''
+                }}
                 inputProps={{
                   inputMode:'numeric'
                 }}
@@ -50,7 +57,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
       transform: 'translate(14px, -9px) scale(0.75)',
       transition: ".4s cubic-bezier(.25,.8,.5,1)",
-      color: 'yellow'
+      color: '#A40000'
     },
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-error':{
