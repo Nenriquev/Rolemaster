@@ -77,7 +77,7 @@ const DistanceInput = (props) => {
 
 }
 
-const FormControlStyle = styled(FormControl)((props)  => (console.log(props),{
+const FormControlStyle = styled(FormControl)((props)  => ({
 
   
     '& .MuiFormLabel-root.MuiInputLabel-root': { 
