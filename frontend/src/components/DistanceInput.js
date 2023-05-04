@@ -9,7 +9,6 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const DistanceInput = (props) => {
 
-
   const [distance, setDistance] = useState('')
   const [load, setLoad] = useState(false)
 
@@ -49,8 +48,8 @@ const DistanceInput = (props) => {
             <Select
               sx={{":before": { borderBottomColor: "#701010" },":after": { borderBottomColor: "#701010" }}}
               name="distance"
-              value={props.distance ?? ""}
-              defaultValue={""}
+              value={props.distance ?? ''}
+              defaultValue={0}
               label="Distancia"
               onChange={props.onChange}
               startAdornment={
@@ -63,8 +62,9 @@ const DistanceInput = (props) => {
                 </InputAdornment>
               }
               MenuProps={MenuProps}
+              Select
             >
-              <MenuItem value={""}>Sin especificar</MenuItem>
+              
               {props.weaponDistance.map((element, index) => {
                 return (
                   <MenuItem

@@ -24,6 +24,20 @@ const reduceCritical = (criatura, response) => {
   }
 };
 
+const destructure = (attack) => {
+  const result = [];
+  for (var i = attack?.length - 1; i >= 0; i--) {
+    result.push(attack[i]);
+  }
+
+  const attackValues = {
+    severity: result[1],
+    critical: result[0],
+  };
+
+  return attackValues
+}
+
 module.exports = {
 
   attack: async (weaponKey, armour, tiradaSM, criatura) => {

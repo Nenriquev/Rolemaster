@@ -19,9 +19,6 @@ import validator from "@/components/js/validator";
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
-
- 
-
 const Home = () => {
 
   const [status, setStatus] = useState('');
@@ -128,7 +125,7 @@ const Home = () => {
     setData(prevState => ({
       ...prevState,
       arma: '',
-      criatura: '',
+      criatura: 'Normal',
       weapon_type: '',
       limite: '',
       distance:''
