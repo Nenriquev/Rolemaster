@@ -59,11 +59,16 @@ module.exports = {
         },
       },
     ]).then(response => {
+
+      
     
       if(response.length > 0 && response[0].tirada != null) {
         const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
         const isNotPfifia = response[0]?.tirada[0] != 'F*'
+        const criticalData = destructure(response[0]?.tirada[0])
+
+        console.log(criticalData)
 
         if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia && response[0]?.tirada?.length > 0) {
           const result = reduceCritical(criatura, response[0]?.tirada[0])

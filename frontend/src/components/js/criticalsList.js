@@ -1,5 +1,3 @@
-const apiUrl = process.env.NEXT_PUBLIC_API_URL
-
 const destructure = (attack) => {
   const result = [];
   for (var i = attack?.length - 1; i >= 0; i--) {
@@ -16,12 +14,14 @@ const destructure = (attack) => {
 
 const criticals = { 
 	E: 'Electricidad',
-	I: 'Impacto',
 	F: 'Calor',
 	H: 'Frio',
+	I: 'Impacto',
 	K: 'Aplastamiento',
 	P: 'Perforacion',
-	S: 'Corte'
+	S: 'Corte',
+	T: 'Criaturas pequeñas',
+	X: 'Golpes de artes marciales'
 }
 
 const specials = {

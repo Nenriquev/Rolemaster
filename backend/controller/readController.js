@@ -21,6 +21,7 @@ module.exports = {
 
   read: async (req, res) => {
 
+
     let tiradaSM = req.body.tirada ? Number(req?.body?.tirada) : '0';   //Tirada sin modificar
     const limit = req.body.limite ?? ''
     const armour = req?.body?.armadura?.toLowerCase() ? req?.body?.armadura?.toLowerCase() : '0'
@@ -54,8 +55,14 @@ module.exports = {
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
         
         if(response && response[0]?.tirada?.length > 0){
-          return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : 
-          response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})
+          return res.json({
+            result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], 
+            data:{
+              arma: response[0].arma, 
+              tipo: response[0].tipo
+            },
+            
+          })
         }
         return res.json({result: 'No se encontraron resultados'})
        }
@@ -140,6 +147,7 @@ module.exports = {
   },
 
   getDistance: async (req, res) => {
+
     
     const distance = req.body.distance !== '' ? req.body.distance : ''
 

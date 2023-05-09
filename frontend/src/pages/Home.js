@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Head from "next/head";
 import { Button } from '@mui/material'
+import destructureCriticals from "../components/js/criticalsList"
 import Critical from "../components/Critical";
 import WeaponsInput from "../components/WeaponsInput";
 import CriatureInput from "../components/CriatureInput";
@@ -23,7 +24,7 @@ const Home = () => {
 
   const [status, setStatus] = useState('');
   const [data, setData] = useState({});
-  const [critical, setCritical] = useState('');
+  const [critical, setCritical] = useState(false);
   const [weapons, setWeapons] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState([]);
   const [weaponDistance, setWeaponDistance] = useState(false);
@@ -32,7 +33,6 @@ const Home = () => {
   const formRef = useRef();
   const focusedRef = useRef()
 
- 
 
   useEffect(() => {
     var requestOptions = {
@@ -57,10 +57,18 @@ const Home = () => {
 
     fetch(`${apiUrl}/api/distances`, requestOptions)
       .then((response) => response.json())
-      .then((data) => setWeaponDistance(data))
+      .then((data) => {
+      setWeaponDistance(data)
+      setData(prevState => ({
+        ...prevState,
+        distance: data ? data.weaponDistance[0].start : ''  
+      }));
+      }
+      )
       .catch(error => console.log('error', error));
 
   }, [data.arma])
+
 
   const handleSubmit = useCallback(async (e) => {
 
@@ -80,16 +88,15 @@ const Home = () => {
     setLoad(true);
 
     try{
-      const response = await fetch(`${apiUrl}/api/read`, requestOptions)
+      const response = await fetch(`${apiUrl}/api/read`, requestOptions);
       const responseData = await response.json();
       setStatus(responseData)
    
-    if(responseData.result !== 'No se encontraron resultados'){
-      focusedRef.current.scrollIntoView()
-      setCritical(responseData)
-    }
-
-    setLoad(false)
+      if(responseData.result !== 'No se encontraron resultados'){
+        focusedRef.current.scrollIntoView()
+        setCritical({opened: true, critical: destructureCriticals(responseData.result,null)})
+      }
+      setLoad(false)
     }
     catch(error){
       console.log(error)
@@ -128,10 +135,9 @@ const Home = () => {
       criatura: 'Normal',
       weapon_type: '',
       limite: '',
-      distance:''
+      distance: ''
     }));
     setErrors(prevState => ({...prevState, arma: false}))
-    
   }
 
   const resetData = () => {
@@ -178,7 +184,6 @@ const Home = () => {
                   }
                   
                   {
-                    
                     weaponDistance.isWeaponDistance ? 
                     <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
                   }
@@ -206,16 +211,20 @@ const Home = () => {
       </div>
        
       <div ref={focusedRef} tabIndex={0} className={styles.col}>
-                  
       <div className={styles.col_container}>
           <div className={styles.row_title}>
-            { load ? <Spinner/> : <h2 className={styles.title}>{status.result}</h2>}
+            { load ? <Spinner/> : 
+            <div> 
+              <h2 className={styles.title}>P:{status.result}</h2>
+              <span>Critico de: {critical?.critical?.critical}</span>
+            </div>
+              }
           </div>
 
           <div className={styles.main_container}>
             {
-              critical && typeof(critical.result) != 'number' ?
-                <Critical critical={critical} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
+              critical.opened && typeof(status.result) != 'number' ?
+                <Critical critical={status} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
                 : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
             }
           </div>
