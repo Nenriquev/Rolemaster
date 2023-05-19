@@ -1,9 +1,11 @@
-import {InputAdornment, FormControl, Select, MenuItem} from '@mui/material';
+import {InputAdornment, FormControl, Select, MenuItem, TextField} from '@mui/material';
+import { useState } from 'react';
 import styles from '../styles/components.module.css'
 import { styled } from '@mui/material/styles';
 import { GiChestArmor } from "react-icons/gi";
-import { InputLabel } from '@mui/material';
 import ErrorIcon from '@mui/icons-material/Error';
+import TransitionsModal from './partials/Modal';
+
 
 
 const armour = ['ta1','ta2','ta3','ta4','ta5','ta6','ta7','ta8','ta9','ta10','ta11','ta12','ta13','ta14','ta15','ta16','ta17','ta18','ta19','ta20']
@@ -19,18 +21,43 @@ const MenuProps = {
   }, 
 };
 
-const ArmorInput = (props) => {
-    return(
-            <div className={`${styles.input__layout} ${styles.input__display}`}>
-              <FormControlStyle 
-                variant="filled" 
-                error={props.error}
-                className="box" 
-                sx={{width: '100%'}}
 
-              >
-                    
-                <InputLabel>Armadura</InputLabel>
+const ArmorInput = (props) => {
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [inputValue, setInputValue] = useState('')
+
+
+
+    return (
+      <div className={`${styles.input__layout} ${styles.input__display}`}>
+        <FormControlStyle
+          variant="filled"
+          error={props.error}
+          className="box"
+          sx={{ width: "100%" }}
+        >
+          <TextField onClick={handleOpen} onChange={props.onChange} value={props.name ?? ""} name="armadura" label="Armadura" variant="filled"
+            sx={{
+              "& .MuiFilledInput-underline:before": {
+                borderBottomColor: "#701010",
+              },
+              "& .MuiFilledInput-underline:after": {
+                borderBottomColor: "#701010",
+              },
+            }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start" required>
+                  <GiChestArmor className={styles.icons} />
+                </InputAdornment>
+              ),
+            }}
+          />
+
+          {/* <InputLabel>Armadura</InputLabel>
                 <Select
                   sx={{':before': { borderBottomColor: '#701010' }, ':after': { borderBottomColor: '#701010' },}}
                   name="armadura"
@@ -53,11 +80,13 @@ const ArmorInput = (props) => {
                     )
                   })
                 }
-               </Select>
-              </FormControlStyle>
-          
-            </div>
-          );
+               </Select> */}
+        </FormControlStyle>
+
+        <TransitionsModal handleOpen={open} handleClose={handleClose} onChange={setInputValue} />
+
+      </div>
+    );
     
 }
 
@@ -67,7 +96,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
 
   
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
-    transform: props.children[1].props.value == '' ? 'translate(42px, 15px) scale(1)' : 'translate(17px, 3px) scale(0.75)',
+    /* transform: props.children[1].props.value == '' ? 'translate(42px, 15px) scale(1)' : 'translate(17px, 3px) scale(0.75)', */
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     zIndex: '0',
     },

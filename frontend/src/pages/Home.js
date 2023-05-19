@@ -33,6 +33,8 @@ const Home = () => {
   const formRef = useRef();
   const focusedRef = useRef()
 
+  console.log(data)
+
 
   useEffect(() => {
     var requestOptions = {
