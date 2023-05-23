@@ -10,8 +10,9 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 const DistanceInput = (props) => {
 
 
-  const [distance, setDistance] = useState('')
+  const [distanceValues, setDistanceValues] = useState('')
   const [load, setLoad] = useState(false)
+
 
   useEffect(() => {
     var requestOptions = {
@@ -24,12 +25,13 @@ const DistanceInput = (props) => {
 
     fetch(`${apiUrl}/api/getdistances`, requestOptions)
       .then((response) => response.json())
-      .then((data) => setDistance(data))
+      .then((data) => setDistanceValues(data))
       .catch(error => console.log('error', error)); 
 
       setLoad(false)
 
   },[props.distance])
+
 
     return (
       <div className={styles.input__distance_container}>
@@ -49,8 +51,7 @@ const DistanceInput = (props) => {
             <Select
               sx={{":before": { borderBottomColor: "#701010" },":after": { borderBottomColor: "#701010" }}}
               name="distance"
-              value={props.distance ?? ""}
-              defaultValue={""}
+              value={props.distance ?? ''}
               label="Distancia"
               onChange={props.onChange}
               startAdornment={
@@ -64,7 +65,7 @@ const DistanceInput = (props) => {
               }
               MenuProps={MenuProps}
             >
-              <MenuItem value={""}>Sin especificar</MenuItem>
+              
               {props.weaponDistance.map((element, index) => {
                 return (
                   <MenuItem
@@ -81,7 +82,7 @@ const DistanceInput = (props) => {
             <Spinner />
           ) : (
             <h2 style={{ color: "rgb(164, 14, 14)", textAlign: "center" }}>
-              {distance.bonus}
+              {distanceValues.bonus}
             </h2>
           )}
         </div>

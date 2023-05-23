@@ -33,6 +33,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+
 /* ===== Scrollbar CSS ===== */
   /* Firefox */
   * {
@@ -61,7 +62,7 @@ a {
 }
 
 .box{
-  background-color: rgba(87, 51, 0, 0.481);
+  background-color: #5733007b;
   border-radius: 4px;
 }
 
@@ -86,3 +87,7 @@ input[data-autocompleted] {
  
    
  }
+
+
+
+

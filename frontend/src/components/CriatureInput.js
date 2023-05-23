@@ -13,7 +13,7 @@ const CriatureInput = (props) => {
         <Select
           sx={{":before": { borderBottomColor: "#701010" }, ":after": { borderBottomColor: "#701010" }}}
           name="criatura"
-          value={props.name ?? ''}
+          value={props.name ?? 'Normal'}
           label="Tipo de criatura"
           onChange={props.onChange}
           startAdornment={
@@ -23,7 +23,7 @@ const CriatureInput = (props) => {
           }
           MenuProps={MenuProps}
         >
-          <MenuItem value={''}>Sin especificar</MenuItem>
+          <MenuItem value={'Normal'} selected>Normal</MenuItem>
           <MenuItem value={1}>1 grado</MenuItem>
           <MenuItem value={2}>2 grados</MenuItem>
           <MenuItem value={props.category.weapon === 'magia ofensiva' ? 'GM' : 'G'}>Grandes</MenuItem>

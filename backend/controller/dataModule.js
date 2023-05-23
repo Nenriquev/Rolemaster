@@ -10,19 +10,44 @@ const reduceCritical = (criatura, response) => {
   const criticals = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   const criature = Number(criatura);
   const attack = response;
-  const letter = attack[attack.length - 2];
-  const pos_letter = criticals.indexOf(letter);
+  const pos_letter = criticals.indexOf(attack.severity);
   const pos_replacement = pos_letter - criature;
 
   if (pos_replacement >= 0) {
     const letter_replace = criticals[pos_replacement];
-    const new_str = attack.replace(letter, letter_replace);
-    return new_str;
+    return {
+      points: +response.points, 
+      severity: letter_replace, 
+      critical: response.critical
+    }
+
   } else {
-    const number = Number(attack.slice(0, -2));
-    return number;
+    return {
+      points: +response.points, 
+      severity: null, 
+      critical: null
+    }
   }
 };
+
+const destructure = (attack) => {
+
+  if(typeof attack !== 'number'){
+
+  let points = attack.match(/\d+/)[0];
+  let critical = attack.match(/[A-Za-z]+/)[0];
+
+  const attackValues = {
+    points: +points,
+    severity: critical[0],
+    critical: critical[1],
+  };
+
+  return attackValues
+  }
+
+  return { points: attack }
+}
 
 module.exports = {
 
@@ -45,16 +70,23 @@ module.exports = {
         },
       },
     ]).then(response => {
+      
     
       if(response.length > 0 && response[0].tirada != null) {
         const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
         const isNotPfifia = response[0]?.tirada[0] != 'F*'
+        
+        const destructureCritical = destructure(response[0].tirada[0])
+        response[0].criticals = destructureCritical
 
         if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia && response[0]?.tirada?.length > 0) {
-          const result = reduceCritical(criatura, response[0]?.tirada[0])
-          response[0].tirada[0] = result 
+      
+          const reduce = reduceCritical(criatura, destructureCritical)
+          response[0].criticals = reduce
         }
+
+        
       }
       resolve(response)
       
