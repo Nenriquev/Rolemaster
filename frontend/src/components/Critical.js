@@ -4,7 +4,13 @@
   import styles from '../styles/home.module.css'
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
-  
+  const specialCriticals = {
+    E: {name:'Electricidad'},
+    I: {name: 'Impacto'},
+    
+    
+  }
+
 
 const Critical = (props) => {
 
@@ -52,6 +58,7 @@ const Critical = (props) => {
     const { name, value } = e.target;
     setCriticalData({ ...criticalData, [name]: value});
   }
+
   
   return (
     <div className={styles.container_description}>

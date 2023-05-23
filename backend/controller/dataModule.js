@@ -56,7 +56,6 @@ module.exports = {
           response[0].tirada[0] = result 
         }
       }
-
       resolve(response)
       
     }).catch(err => reject(err)))
@@ -159,7 +158,6 @@ module.exports = {
           start: { $lte: criticalRoll },
           end: { $gte: criticalRoll },
         }).then(response => {
-
             resolve(response)
 
         }).catch(err => reject(err));

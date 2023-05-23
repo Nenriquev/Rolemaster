@@ -3,7 +3,19 @@ const Criticos_secundarios = require('../database/models/Criticos_secundarios')
 const Distance_bonus = require('../database/models/Distance_bonus')
 const dataModule = require('../controller/dataModule') 
 
+const destructure = (attack) => {
+  const result = [];
+  for (var i = attack?.length - 1; i >= 0; i--) {
+    result.push(attack[i]);
+  }
 
+  const attackValues = {
+    severity: result[1],
+    critical: result[0],
+  };
+
+  return attackValues
+}
 
 module.exports = {
 
@@ -41,7 +53,8 @@ module.exports = {
 
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
         if(response && response[0]?.tirada?.length > 0){
-          return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo}})
+          const destructureCritical = destructure(response[0].tirada[0])
+          return res.json({result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], data:{arma: response[0].arma, tipo: response[0].tipo, destructured: destructureCritical}})
         }
         return res.json({result: 'No se encontraron resultados'})
        }
@@ -84,21 +97,6 @@ module.exports = {
 
 
   getMagicals: async (req, res) => {
-
-
-    const destructure = (attack) => {
-      const result = [];
-      for (var i = attack?.length - 1; i >= 0; i--) {
-        result.push(attack[i]);
-      }
-
-      const attackValues = {
-        severity: result[1],
-        critical: result[0],
-      };
-
-      return attackValues
-    }
 
     if (Object.entries(req.body).length != 0) {
       const weapon = req?.body?.weapon;
