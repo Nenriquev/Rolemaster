@@ -33,8 +33,7 @@ const Home = () => {
   const formRef = useRef();
   const focusedRef = useRef()
 
-  console.log(data)
-
+  console.log(critical)
 
   useEffect(() => {
     var requestOptions = {
@@ -217,7 +216,7 @@ const Home = () => {
           <div className={styles.row_title}>
             { load ? <Spinner/> : 
             <div> 
-              <h2 className={styles.title}>P:{status.result}</h2>
+              <h2 className={styles.title}>{status.result}</h2>
               <span>Critico de: {critical?.critical?.critical}</span>
             </div>
               }

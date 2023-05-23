@@ -4,6 +4,7 @@ const Distance_bonus = require('../database/models/Distance_bonus')
 const dataModule = require('../controller/dataModule') 
 
 const destructure = (attack) => {
+  
   const result = [];
   for (var i = attack?.length - 1; i >= 0; i--) {
     result.push(attack[i]);
@@ -13,6 +14,7 @@ const destructure = (attack) => {
     severity: result[1],
     critical: result[0],
   };
+
 
   return attackValues
 }
@@ -36,7 +38,7 @@ module.exports = {
        return res.json({result: 'Pifiaste', data: pifia.TSM_pifias[0]})
       }
 
-      else if(specialAttack){
+      if(specialAttack){
         const response = await dataModule.specialAttack(weaponKey, armour, criatura)
         if(response && response[0].ataque?.length > 0){
         return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
@@ -53,13 +55,19 @@ module.exports = {
         }
 
         const response = await dataModule.attack(weaponKey, armour, tiradaSM, criatura)
+        console.log('respuesta de read: ', response)
         
         if(response && response[0]?.tirada?.length > 0){
+
+          const critical = destructure(response[0].tirada[0])
+
           return res.json({
             result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], 
             data:{
               arma: response[0].arma, 
-              tipo: response[0].tipo
+              tipo: response[0].tipo,
+              severity: critical.severity, 
+              critical: critical.critical,
             },
             
           })

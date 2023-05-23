@@ -6,6 +6,8 @@ const Limites = require('../database/models/Limites');
 
 
 const reduceCritical = (criatura, response) => {
+
+  console.log(response)
   
   const criticals = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   const criature = Number(criatura);
@@ -25,14 +27,14 @@ const reduceCritical = (criatura, response) => {
 };
 
 const destructure = (attack) => {
-  const result = [];
-  for (var i = attack?.length - 1; i >= 0; i--) {
-    result.push(attack[i]);
-  }
+
+  let points = attack.match(/\d+/)[0];
+  let critical = attack.match(/[A-Za-z]+/)[0];
 
   const attackValues = {
-    severity: result[1],
-    critical: result[0],
+    points: points,
+    severity: critical[1],
+    critical: critical[0],
   };
 
   return attackValues
@@ -60,20 +62,22 @@ module.exports = {
       },
     ]).then(response => {
 
+      console.log(response)
       
     
       if(response.length > 0 && response[0].tirada != null) {
         const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
         const isNotPfifia = response[0]?.tirada[0] != 'F*'
-        const criticalData = destructure(response[0]?.tirada[0])
-
-        console.log(criticalData)
+        const destructureCritical = destructure(response[0].tirada[0])
 
         if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia && response[0]?.tirada?.length > 0) {
-          const result = reduceCritical(criatura, response[0]?.tirada[0])
+          
+          const reduceCritical = reduceCritical(criatura, destructureCritical)
           response[0].tirada[0] = result 
         }
+
+        response[0].criticals = destructureCritical
       }
 
       resolve(response)
