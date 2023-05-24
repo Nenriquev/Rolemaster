@@ -207,7 +207,7 @@ const sheetVerify = async (worksheet, category) => {
             start: column.start,
             end: column.end,
             type: element,
-            description: column[element],
+            description: column[element] ?? 'No Existe descripcion',
           })
         });
       });

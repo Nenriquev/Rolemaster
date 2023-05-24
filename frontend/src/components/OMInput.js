@@ -8,12 +8,12 @@ import { GiSwordman} from "react-icons/gi";
 
 
 
-const BDInput = (props) => {
+const OMInput = (props) => {
 
     return(
             <div className={styles.input__modify_display}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='bd' label="B.D" variant="filled" 
+                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='om' label="O.M" variant="filled" 
                 sx={{
                   '& .MuiFilledInput-underline:before': { borderBottomColor: '#701010' },
                   '& .MuiFilledInput-underline:after': { borderBottomColor: '#701010' },
@@ -38,7 +38,7 @@ const BDInput = (props) => {
     
 }
 
-export default BDInput;
+export default OMInput;
 
 
 const FormControlStyle = styled(FormControl)((props) => ({

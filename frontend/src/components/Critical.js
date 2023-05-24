@@ -10,11 +10,12 @@
 
 const Critical = (props) => {
 
+
   const [criticalData, setCriticalData] = useState([])
   const [description, setDescription] = useState('')
-  const attack = props?.critical?.result
-  const type = props?.critical?.data?.tipo
-  const weapon = props.critical?.data?.arma
+  const attack = props?.data?.result
+  const type = props?.data?.data?.pifia?.tipo
+  const weapon = props.data?.data?.arma
   const criature = props?.criature?.type
   const weapon_type = props?.criature?.weapon_type
   const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J'))

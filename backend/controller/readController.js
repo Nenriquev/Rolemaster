@@ -20,7 +20,13 @@ module.exports = {
     
 
       if(pifia){
-       return res.json({result: 'Pifiaste', data: pifia.TSM_pifias[0]})
+       return res.json({
+        result: 'Pifiaste', 
+        data: {
+          pifia: pifia.TSM_pifias[0],
+          points: 'Pifiaste'
+        }
+      })
       }
 
       if(specialAttack){
@@ -43,14 +49,12 @@ module.exports = {
         
         if(response && response[0]?.tirada?.length > 0){
 
-          console.log(response)
-
           return res.json({
             result: response[0].tirada[0] == 'F*' ? 'Pifiaste' : response[0].tirada[0], 
             data:{
               arma: response[0].arma, 
               tipo: response[0].tipo,
-              points: response[0].criticals.points,
+              points: response[0].criticals.points == 'F*' ? 'Pifiaste' : response[0].criticals.points,
               severity: response[0].criticals.severity, 
               critical: response[0].criticals.critical,
             },

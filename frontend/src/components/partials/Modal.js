@@ -67,7 +67,7 @@ const TransitionsModal = (props) => {
                             <div key={index+10}>
                               <input onChange={handleChange} onClick={props.handleClose} className={styles.input__radio} type="radio" name="armadura"
                                 id={element}
-                                value={element}
+                                value={element.toUpperCase()}
                               />
                               <label
                                 style={{ backgroundColor: selectedOption === element ? "#A40000" : "#5733007b"}}

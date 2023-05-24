@@ -32,7 +32,7 @@ const reduceCritical = (criatura, response) => {
 
 const destructure = (attack) => {
 
-  if(typeof attack !== 'number'){
+  if(typeof attack !== 'number' && attack !== 'F*'){
 
   let points = attack.match(/\d+/)[0];
   let critical = attack.match(/[A-Za-z]+/)[0];
@@ -70,8 +70,7 @@ module.exports = {
         },
       },
     ]).then(response => {
-      
-    
+
       if(response.length > 0 && response[0].tirada != null) {
         const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
         const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
@@ -190,6 +189,7 @@ module.exports = {
           start: { $lte: criticalRoll },
           end: { $gte: criticalRoll },
         }).then(response => {
+          
             resolve(response)
 
         }).catch(err => reject(err));

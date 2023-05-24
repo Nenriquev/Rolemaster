@@ -18,6 +18,10 @@ margin: 5px 0px;
   width: 60%;
 }
 
+.input__modify_display{
+  width: 30%;
+}
+
 
 .icons{
 color: rgb(104, 77, 33);

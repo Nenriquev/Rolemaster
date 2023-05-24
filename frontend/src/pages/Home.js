@@ -15,6 +15,7 @@ import WeaponType from "../components/WeaponType";
 import DistanceInput from "../components/DistanceInput";
 import BOInput from "../components/BOInput";
 import BDInput from "../components/BDInput";
+import OMInput from "../components/OMInput";
 import Spinner from "@/components/partials/Spiner";
 import validator from "@/components/js/validator";
 
@@ -176,6 +177,7 @@ const Home = () => {
                   <div className={styles.input__container}>
                     <BOInput onChange={handleData} name={data.bo}/>
                     <BDInput onChange={handleData} name={data.bd}/>
+                    <OMInput onChange={handleData} name={data.om}/>
                   </div>
                   <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
                   
@@ -216,7 +218,7 @@ const Home = () => {
           <div className={styles.row_title}>
             { load ? <Spinner/> : 
             <div style={{paddingBottom:'10px'}}> 
-              <h2 className={styles.title}>{dataResults?.data?.points} P.V</h2>
+              <h2 className={styles.title}>{dataResults?.data?.points ? `${dataResults?.data?.points} P.V` : dataResults.result}</h2>
              {/*  <h4 className={styles.title}>Severidad: {dataResults?.data?.severity}</h4>
               <h4 className={styles.title}>Critico: {dataResults?.data?.critical}</h4> */}
             </div>
@@ -226,7 +228,7 @@ const Home = () => {
           <div className={styles.main_container}>
             {
               critical.opened && typeof(dataResults.result) != 'number' ?
-                <Critical critical={dataResults} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
+                <Critical data={dataResults} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
                 : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
             }
           </div>

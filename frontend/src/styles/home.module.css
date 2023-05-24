@@ -9,7 +9,6 @@
 
 .title{
   font-family: 'Dragon Hunter';
-  width: 70%;
   letter-spacing: 4px;
   text-align: center;
   margin: 8px auto;
@@ -81,6 +80,9 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .form_container{
