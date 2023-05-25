@@ -1,8 +1,8 @@
   import { useState } from "react"
-  import { Button } from "@mui/material"
   import verify from "./Magicals"
   import styles from '../styles/home.module.css'
   import destructureCriticals from "./js/criticalsList"
+  import CriticalInput from "./CriticalInput"
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   
@@ -21,6 +21,7 @@ const Critical = (props) => {
   const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J'))
   const IsvalidCritical3 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('H') || attack.includes('I') || attack.includes('J'))
   const critical = destructureCriticals(attack, weapon)
+
   
 
   const handleSubmitCritical = async (e) => {
@@ -57,27 +58,25 @@ const Critical = (props) => {
   }
 
   
+  
   return (
+
+    
     <div className={styles.container_description}>
+
       <form id="critical" onSubmit={handleSubmitCritical}>
-        <label>{critical.critical}<input onChange={handleCriticalData} type="number" id="critical" name="critical"/></label>
-        <Button type='submit' variant="contained" color="success">Tirar</Button>
-        <h2 className={styles.description}>{description?.critical?.critic}</h2>
+        <CriticalInput id={'critical'} value={criticalData} critical={critical} description={description} onChange={handleCriticalData}/>
       </form>
       {
          IsvalidCritical2 ? 
       <form id="critical2" onSubmit={handleSubmitCritical}>
-        <label>{critical.critical2}<input onChange={handleCriticalData} type="number" name="critical2"/></label>
-        <Button type='submit' variant="contained" color="success">Tirar</Button>
-        <h2 className={styles.description}>{description?.critical2?.critic}</h2>
+        <CriticalInput id={'critical2'} value={criticalData} critical={critical} description={description} onChange={handleCriticalData}/>
       </form> : ''
       }
       {
         IsvalidCritical3 ? 
       <form id="critical3" onSubmit={handleSubmitCritical}>
-        <label>{critical.critical3}<input onChange={handleCriticalData} type="number" name="critical3"/></label>
-        <Button type='submit' variant="contained" color="success">Tirar</Button>
-        <h2 className={styles.description}>{description?.critical3?.critic}</h2>
+        <CriticalInput id={'critical3'} value={criticalData}critical={critical} description={description} onChange={handleCriticalData}/>
       </form> : ''
       }
       </div>

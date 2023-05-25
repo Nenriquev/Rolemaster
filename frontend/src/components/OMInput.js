@@ -13,16 +13,13 @@ const OMInput = (props) => {
     return(
             <div className={styles.input__modify_display}>
               <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-                <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='om' label="O.M" variant="filled" 
+                <TextField onChange={props.onChange} value={props.name ?? ''} name='om' label="O.M" variant="filled" 
                 sx={{
                   '& .MuiFilledInput-underline:before': { borderBottomColor: '#701010' },
                   '& .MuiFilledInput-underline:after': { borderBottomColor: '#701010' },
                 }}
                 onInput = {(e) =>{
-                  e.target.value = e.target.value != '' ? Math.max(0, parseInt(e.target.value) ).toString().slice(0,3) : ''
-                }}
-                inputProps={{
-                  inputMode:'numeric'
+                  e.target.value = e.target.value != '' ? e.target.value.toString().slice(0,4) : ''
                 }}
                 InputProps={{ 
                 startAdornment: 
