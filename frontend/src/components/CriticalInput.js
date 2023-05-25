@@ -1,8 +1,27 @@
-import { Button, FormControl, TextField, InputAdornment } from "@mui/material";
-import styles from "../styles/components.module.css";
+import { Button, FormControl, TextField, InputAdornment, Zoom } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import styles from "../styles/components.module.css";
+
+
+
+
 
 const CriticalInput = ({ critical, onChange, description, id, value }) => {
+
+  const componente = (<h2 className={styles.description}>{description[id]?.critic}</h2>)
+  const [checked, setChecked] = useState(false);
+  
+  const handleChange = () => {
+    setChecked(false);
+  }
+
+  useEffect(()=> {
+    setChecked(true)
+  },[description])
+
+
+
   return (
     <div>
       <div>
@@ -50,9 +69,10 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
           />
         </FormControlStyle>
 
-        <Button type="submit" variant="contained" color="success">Tirar</Button>
+        <Button onClick={handleChange} type="submit" variant="contained" color="success">Tirar</Button>
       </div>
-      <h2 className={styles.description}>{description[id]?.critic}</h2>
+
+      <Zoom in={checked}>{componente}</Zoom>
     </div>
   );
 };

@@ -191,7 +191,6 @@ const Home = () => {
                     <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
                   }
 
-                    
                     <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
                   {
                     data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
