@@ -1,4 +1,5 @@
 import { Button, FormControl, TextField, InputAdornment, Zoom } from "@mui/material";
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
 import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import styles from "../styles/components.module.css";
@@ -9,7 +10,7 @@ import styles from "../styles/components.module.css";
 
 const CriticalInput = ({ critical, onChange, description, id, value }) => {
 
-  const componente = (<h2 className={styles.description}>{description[id]?.critic}</h2>)
+  const componente = (<p className={styles.description}>{description[id]?.critic}</p>)
   const [checked, setChecked] = useState(false);
   
   const handleChange = () => {
@@ -24,7 +25,7 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
 
   return (
     <div>
-      <div>
+      <div className={styles.critical_input}>
         <FormControlStyle
           variant="standard"
           className="box"
@@ -69,7 +70,7 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
           />
         </FormControlStyle>
 
-        <Button onClick={handleChange} type="submit" variant="contained" color="success">Tirar</Button>
+        <Button onClick={handleChange} type="submit" variant="contained" color="success"><DoneOutlineIcon /></Button>
       </div>
 
       <Zoom in={checked}>{componente}</Zoom>
