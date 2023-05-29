@@ -49,7 +49,7 @@
 
 
 .container_description{
-  color: brown;
+  color:rgb(84, 56, 26);
   font-size: 13px;
   width: 70%;
   margin: 36px auto;
@@ -184,6 +184,7 @@
 
    .main_container{
     width: 75%;
+    height: 85%;
    }
 
    

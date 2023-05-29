@@ -24,7 +24,14 @@ margin: 5px 0px;
 
 .critical_input{
   display: flex;
-  justify-content: space-around;
+  gap: 10px
+}
+
+.critical_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .description{
@@ -32,7 +39,7 @@ margin: 5px 0px;
   font-family: cursive;
   font-weight: bold;
   font-size: 15px;
-  line-height: 16px;
+  line-height: 18px;
   margin-top: 5px;
 }
 

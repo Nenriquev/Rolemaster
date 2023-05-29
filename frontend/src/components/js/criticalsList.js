@@ -1,3 +1,5 @@
+import { GiElectric, GiFlamer, GiRaggedWound, GiBangingGavel, GiHighKick } from "react-icons/gi";
+
 const destructure = (attack) => {
   const result = [];
   for (var i = attack?.length - 1; i >= 0; i--) {
@@ -24,6 +26,19 @@ const criticals = {
 	X: 'Golpes de artes marciales'
 }
 
+const icons = {
+	E: <GiElectric/>,
+	F: <GiFlamer/>,
+	H: '',
+	I: '',
+	K: <GiBangingGavel/>,
+	P: '',
+	S: <GiRaggedWound/>,
+	T: '',
+	X: <GiHighKick/>,
+
+}
+
 const specials = {
 	'Proyectil de luz': {critical2: 'I', critical3: 'F'},
 	'Proyectil de hielo': {critical2: 'H'},
@@ -34,17 +49,29 @@ const specials = {
 }
 
  
- const destructureCriticals = (attack, weapon) => {
+const destructureCriticals = (attack, weapon) => {
 
 		const attacks = destructure(attack)	
 	
 		return({
-			critical: criticals[attacks.critical], 
-			critical2: criticals[specials[weapon]?.critical2] ?? null, 
-			critical3: criticals[specials[weapon]?.critical3] ?? null
+			critical: {
+				type: criticals[attacks.critical],
+				icon: icons[attacks.critical]
+			}, 
+			critical2: {
+				type: criticals[specials[weapon]?.critical2] ?? null,
+				icon: icons[specials[weapon]?.critical2] ?? null
+			},
+			critical3: {
+				type: criticals[specials[weapon]?.critical3] ?? null,
+				icon: icons[specials[weapon]?.critical3] ?? null
+			}
 		})
 
 	}
 
+
+	export default destructureCriticals;
+
+
 	
-export default destructureCriticals;

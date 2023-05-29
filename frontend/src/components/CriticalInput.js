@@ -24,13 +24,13 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
 
 
   return (
-    <div>
+    <div className={styles.critical_container}>
       <div className={styles.critical_input}>
         <FormControlStyle
           variant="standard"
           className="box"
           sx={{
-            width: "40%",
+            width: "100px",
             "& .MuiOutlinedInput-root.Mui-focused": {
               "& > fieldset": { borderColor: "orange" },
             },
@@ -41,8 +41,9 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
             type="number"
             value={value[id] ?? ""}
             name={id}
-            label={critical[id]}
+            label={`${critical[id].type}`}
             variant="filled"
+            size="small"
             sx={{
               "& .MuiFilledInput-underline:before": {
                 borderBottomColor: "#701010",
@@ -62,8 +63,8 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
             }}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start" required>
-                  {/* <GiSwordman className={styles.icons}/> */}
+                <InputAdornment className={styles.icons} position="start" required>
+                   {critical[id]?.icon}
                 </InputAdornment>
               ),
             }}
@@ -81,14 +82,19 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
 const FormControlStyle = styled(FormControl)((props) => ({
   "& .MuiFormLabel-root.MuiInputLabel-root": {
     transform: props.children.props.value
-      ? "translate(17px, 3px) scale(0.75)"
-      : "translate(45px, 15px) scale(1)",
+      ? "translate(5px,-14px) scale(0.75)"
+      : "translate(4px,-14px) scale(0.75)",
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
+    color: "#A40000",
     zIndex: "0",
+    fontFamily: 'Dragon Hunter',
+    maxWidth: '250px',
+    fontWeight: 'bold',
+    paddingTop: '0px'
   },
 
   "& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused": {
-    transform: "translate(14px, -9px) scale(0.75)",
+    transform: "translate(5px,-20px) scale(1)",
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     color: "#A40000",
   },
