@@ -24,6 +24,7 @@ const Critical = (props) => {
 
   
 
+
   const handleSubmitCritical = async (e) => {
     e.preventDefault()
     const formData = new FormData()

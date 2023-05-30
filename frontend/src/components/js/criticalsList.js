@@ -40,7 +40,12 @@ const icons = {
 }
 
 const specials = {
-	'Proyectil de luz': {critical2: 'I', critical3: 'F'},
+	'Proyectil de luz': {
+		'H': [{critical: 'C', type: 'I'}, {critical: 'A', type: 'F'}],
+		'I': {
+			critical: 'D', type: 'I'
+		}
+	},
 	'Proyectil de hielo': {critical2: 'H'},
 	'Cuernos y colmillos': {critical2: 'U'},
 	'Mordedura': {critical2: 'S'},
@@ -52,6 +57,7 @@ const specials = {
 const destructureCriticals = (attack, weapon) => {
 
 		const attacks = destructure(attack)	
+		console.log(specials['Proyectil de luz']['H'])
 	
 		return({
 			critical: {

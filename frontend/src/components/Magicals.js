@@ -2,6 +2,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const verify = async (attack, id_target, weapon) => {
 
+
   
   const secondaryCriticals = ['F','G','H','I','J']
   const result = []
