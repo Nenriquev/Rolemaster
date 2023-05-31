@@ -40,38 +40,61 @@ const icons = {
 }
 
 const specials = {
-	'Proyectil de luz': {
-		'H': [{critical: 'C', type: 'I'}, {critical: 'A', type: 'F'}],
-		'I': {
-			critical: 'D', type: 'I'
-		}
+	'Proyectil de hielo': {
+		'F': [{severity: 'A', type: 'H'}],
+		'G': [{severity: 'C', type: 'H'}],
 	},
-	'Proyectil de hielo': {critical2: 'H'},
-	'Cuernos y colmillos': {critical2: 'U'},
-	'Mordedura': {critical2: 'S'},
-	'Garras y uñas': {critical2: 'S'},
-	'Picos/Pinzas': {critical2: 'K'}
+	'Proyectil de luz': {
+		'F': [{severity: 'A', type: 'I'}],
+		'G': [{severity: 'B', type: 'I'}],
+		'H': [{severity: 'C', type: 'I'}, {severity: 'A', type: 'F'}],
+		'I': [{severity: 'D', type: 'I'}, {severity: 'B', type: 'F'}],
+		'J': [{severity: 'D', type: 'I'}, {severity: 'C', type: 'F'}],
+	},
+	'Cuernos y colmillos': {
+		'F': [{severity: 'C', type: 'U'}],
+	},
+	'Mordedura': {
+		'F': [{severity: 'C', type: 'S'}],
+	},
+	'Garras y uñas': {
+		'F': [{severity: 'C', type: 'S'}],
+	},
+	'Picos/Pinzas': {
+		'F': [{severity: 'C', type: 'K'}],
+	}
 }
 
  
 const destructureCriticals = (attack, weapon) => {
 
 		const attacks = destructure(attack)	
-		console.log(specials['Proyectil de luz']['H'])
+		const isSecundaryCritical = 'FGHIJ'.includes(attacks.severity)
+		let secundaryCriticals = ''
+
+		for (const skill in specials) {
+			if (specials[skill][attacks.severity]) {
+			 secundaryCriticals = specials[skill][attacks.severity];
+			}
+		}
+
 	
 		return({
 			critical: {
 				type: criticals[attacks.critical],
+				severity: isSecundaryCritical ? 'E' : attacks.severity,
 				icon: icons[attacks.critical]
 			}, 
-			critical2: {
-				type: criticals[specials[weapon]?.critical2] ?? null,
-				icon: icons[specials[weapon]?.critical2] ?? null
+			 critical2: {
+				type: criticals[secundaryCriticals[0]?.type] ?? null,
+				severity: secundaryCriticals[0]?.severity ?? null, 
+				icon: icons[secundaryCriticals[0]?.type] ?? null
 			},
 			critical3: {
-				type: criticals[specials[weapon]?.critical3] ?? null,
-				icon: icons[specials[weapon]?.critical3] ?? null
-			}
+				type: criticals[secundaryCriticals[1]?.type] ?? null,
+				severity: secundaryCriticals[1]?.severity ?? null,
+				icon: icons[secundaryCriticals[1]?.type] ?? null
+			} 
 		})
 
 	}

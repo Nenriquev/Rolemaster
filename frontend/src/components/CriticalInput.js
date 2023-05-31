@@ -20,7 +20,7 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
   useEffect(()=> {
     setChecked(true)
   },[description])
-
+  
 
 
   return (
@@ -41,7 +41,7 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
             type="number"
             value={value[id] ?? ""}
             name={id}
-            label={`${critical[id].type}`}
+            label={`Critico ${critical[id].severity} ${critical[id].type}`}
             variant="filled"
             size="small"
             sx={{
@@ -82,8 +82,8 @@ const CriticalInput = ({ critical, onChange, description, id, value }) => {
 const FormControlStyle = styled(FormControl)((props) => ({
   "& .MuiFormLabel-root.MuiInputLabel-root": {
     transform: props.children.props.value
-      ? "translate(5px,-14px) scale(0.75)"
-      : "translate(4px,-14px) scale(0.75)",
+      ? "translate(4px,-14px) scale(0.75)"
+      : "translate(4px,-16px) scale(0.75)",
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     color: "#A40000",
     zIndex: "0",
@@ -94,7 +94,7 @@ const FormControlStyle = styled(FormControl)((props) => ({
   },
 
   "& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused": {
-    transform: "translate(5px,-20px) scale(1)",
+    transform: "translate(0px,-20px) scale(.9)",
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
     color: "#A40000",
   },

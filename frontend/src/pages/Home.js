@@ -218,7 +218,6 @@ const Home = () => {
             { load ? <Spinner/> : 
             <div style={{paddingBottom:'10px'}}> 
               <h2 className={styles.title}>{dataResults?.data?.points ? `${dataResults?.data?.points} P.V` : dataResults.result}</h2>
-              <h4> { dataResults?.data?.severity ? `Critico: ${dataResults?.data?.severity}` : ''}</h4>
             </div>
               }
           </div>

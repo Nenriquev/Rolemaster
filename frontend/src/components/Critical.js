@@ -10,6 +10,8 @@
 
 const Critical = (props) => {
 
+   
+
 
   const [criticalData, setCriticalData] = useState([])
   const [description, setDescription] = useState('')
@@ -21,8 +23,6 @@ const Critical = (props) => {
   const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J'))
   const IsvalidCritical3 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('H') || attack.includes('I') || attack.includes('J'))
   const critical = destructureCriticals(attack, weapon)
-
-  
 
 
   const handleSubmitCritical = async (e) => {
