@@ -12,7 +12,7 @@ const BOInput = (props) => {
 
     return(
             <div className={styles.input__modify_display}>
-              <FormControlStyle variant="standard" className="box" sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
+              <FormControlStyle variant="standard" className="box" sx={{width: '100%'}}>
                 <TextField onChange={props.onChange} value={props.name ?? ''} type='number' name='bo' label="B.O" variant="filled" 
                 sx={{
                   '& .MuiFilledInput-underline:before': { borderBottomColor: '#701010' },

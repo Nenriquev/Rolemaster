@@ -6,6 +6,7 @@ import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, InputAdo
 import { styled } from '@mui/material/styles';
 import styles from '../styles/uploadFile.module.css'  
 import { GiCloudUpload } from "react-icons/gi";
+import Header from '@/components/partials/Header';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -78,54 +79,56 @@ function UploadFile() {
     setData(formdata)
   };
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Rolemaster - Subir archivo</title>
-      </Head>
+    <div className={styles.main}>
+        <Head>
+          <title>Rolemaster - Subir archivo</title>
+        </Head>
 
+      <Header/>
 
-      <div className={styles.home_btn}>
-        <Link href='/'>🏠</Link>
-      </div>
+      <div className={styles.container}>
+        <div className={styles.home_btn}>
+          <Link href='/'>🏠</Link>
+        </div>
       
-        <form className={styles.form} onSubmit={addTask}>
-        <Box >
-        <FormControlStyle className={styles.box} sx={{width: '100%', "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "orange"}}}}>
-          <InputLabel >Hoja a cargar</InputLabel>
-          <Select
-            ref={category}
-            value={sheet}
-            label="Hoja a cargar"
-            onChange={handleChange}
-            startAdornment={
-              <InputAdornment position="start">
-               <GiCloudUpload className={styles.icons}/>
-              </InputAdornment>
-            }
-          >
-            <MenuItem value={'bonificadores'}>Bonificadores</MenuItem>
-            <MenuItem value={'armas'}>Armas</MenuItem>
-            <MenuItem value={'criticos'}>Criticos</MenuItem>
-            <MenuItem value={'pifias'}>Pifias</MenuItem>
-            <MenuItem value={'modificadores alcance'}>Modificadores por alcance</MenuItem>
-          </Select>
-        </FormControlStyle>
-      </Box>
-      
-      <div className={styles.alert_container}>
-          {status.error ?  <Alert variant="filled" severity="error">{status.error}</Alert> : null}
-          {status.mensaje ? <Alert variant="filled" severity="success">{status.mensaje}</Alert>: null}
+          <div className={styles.form_container}>
+            <form className={styles.form} onSubmit={addTask}>
+            <Box >
+            <FormControlStyle className='box' sx={{width: '100%'}}>
+              <InputLabel >Hoja a cargar</InputLabel>
+              <Select
+                ref={category}
+                value={sheet}
+                label="Hoja a cargar"
+                onChange={handleChange}
+                startAdornment={
+                  <InputAdornment position="start">
+                   <GiCloudUpload className={styles.icons}/>
+                  </InputAdornment>
+                }
+              >
+                <MenuItem value={'bonificadores'}>Bonificadores</MenuItem>
+                <MenuItem value={'armas'}>Armas</MenuItem>
+                <MenuItem value={'criticos'}>Criticos</MenuItem>
+                <MenuItem value={'pifias'}>Pifias</MenuItem>
+                <MenuItem value={'modificadores alcance'}>Modificadores por alcance</MenuItem>
+              </Select>
+            </FormControlStyle>
+                    </Box>
+                  
+                    <div className={styles.alert_container}>
+              {status.error ?  <Alert variant="filled" severity="error">{status.error}</Alert> : null}
+              {status.mensaje ? <Alert variant="filled" severity="success">{status.mensaje}</Alert>: null}
+                    </div>
+                    <div className={styles.select_file_btn}>
+                    <Button className={styles.file_btn} variant="contained" component="label">{file ? file.name : 'Seleccionar Archivo'}
+            <input hidden type="file" onChange={handleFile} name="file"/>
+                    </Button>
+                    </div>
+              <Button className={styles.upload_btn} type='submit' variant="contained" color="success">Cargar</Button>
+            </form>
+          </div>
       </div>
-
-      <div className={styles.select_file_btn}>
-      <Button className={styles.file_btn} variant="contained" component="label">{file ? file.name : 'Seleccionar Archivo'}
-        <input hidden type="file" onChange={handleFile} name="file"/>
-      </Button>
-      </div>
-    
-          <Button className={styles.upload_btn} type='submit' variant="contained" color="success">Cargar</Button>
-        </form>
-  
     </div>
   );
 }
@@ -139,13 +142,16 @@ const FormControlStyle = styled(FormControl)((props) => ({
   '& .MuiFormLabel-root.MuiInputLabel-root': { 
     transform: props.children[1].props.value ? '' : 'translate(50px, 15px) scale(1)', 
     transition: ".4s cubic-bezier(.25,.8,.5,1)",
-    zIndex: '0'
+    zIndex: '0',
     },
 
     '& .MuiFormLabel-root.MuiInputLabel-root.Mui-focused': {
       transform: 'translate(14px, -9px) scale(0.75)',
-      transition: ".4s cubic-bezier(.25,.8,.5,1)"
+      transition: ".4s cubic-bezier(.25,.8,.5,1)",
+      color: '#A40000'
     }, 
+
+    "& .MuiOutlinedInput-root.Mui-focused": {"& > fieldset": {borderColor: "#A40000"}}
 
     
     

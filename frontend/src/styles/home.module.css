@@ -22,6 +22,26 @@
                  0px 0px 3px rgba(0,0,0,.2);
 }
 
+.result_title{
+  padding-top: 11px;
+  position: absolute;
+  width: 190px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  background-image: url('../../public/wood.png');
+  background-repeat: no-repeat;
+  background-size: 190px 85px;
+  background-position: 50% -18px; 
+}
+
+.header{
+  display: flex;
+  justify-content: center;
+  height: 80px;
+  
+}
+
 .form{
   margin: 0 auto;
   width: 73%;
@@ -64,8 +84,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10%;
-  width: 100%;
+  height: 100%;
+  width: 80%;
   background-image: url('../../public/wood.png');
   background-repeat: no-repeat;
   background-size: 190px 85px;
@@ -98,6 +118,7 @@
   justify-content: center;
   align-items: center;
   height: 60%;
+  width: 80%;
 }
 
 
@@ -108,6 +129,7 @@
   align-items: center ;
 }
 
+
 .col_container{
   width: 100%;
   height: 100%;
@@ -115,6 +137,15 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+}
+
+.secondcol_container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .inputRoll__container{
@@ -137,6 +168,15 @@
 .description{
   text-align: justify;
   line-height: 15px;
+}
+
+.center_div{
+  transform: translate(-95px, 0px);
+}
+
+.reset_button{
+  display: flex;
+  justify-content: center;
 }
 
 
@@ -168,6 +208,14 @@
     width: 80%;
     height: 100%;
   }
+
+  .col_container{
+    justify-content: flex-start;
+  }
+
+  .secondcol_container{
+    justify-content: flex-start;
+  }
  
    .form {
      width: 65%;
@@ -180,12 +228,25 @@
    .col{
     align-items: center;
     width: 50%;
+    height: 100%;
    }
 
    .main_container{
     width: 75%;
     height: 85%;
    }
+
+   .center_div{
+    transform: translate(-100px, -100px);
+  }
+
+  .result_title{
+    position: absolute;
+    display: flex;
+    padding-top: 12px;
+    width: 200px;
+    height: 200px;
+  }
 
    
    

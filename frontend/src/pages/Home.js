@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import Link from "next/link";
 import Head from "next/head";
-import { Button } from '@mui/material'
+import { Button, IconButton, Tooltip, Fade } from '@mui/material'
+import { styled } from "@mui/material/styles";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import destructureCriticals from "../components/js/criticalsList"
 import Critical from "../components/Critical";
 import WeaponsInput from "../components/WeaponsInput";
@@ -18,6 +19,8 @@ import BDInput from "../components/BDInput";
 import OMInput from "../components/OMInput";
 import Spinner from "@/components/partials/Spiner";
 import validator from "@/components/js/validator";
+import Header from "@/components/partials/Header";
+
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -153,81 +156,86 @@ const Home = () => {
 
   return (
     
-    <div className={styles.App}>
-      <Head>
-        <title>Rolemaster</title>
-      </Head>
+    <div className='main'>
+        <Head>
+          <title>Rolemaster</title>
+        </Head>
 
+    <Header/>
+        
+
+      <div className={styles.App}>
+        
+        <div className={styles.col}>
+          <div className={styles.col_container}>
+            
+              <div className={styles.main_container}>
+                <div className={styles.form_container}>
+                  <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
       
-      <Link href='uploadFile'>Subir archivo</Link>
-      <div className={styles.col}>
+                    <div className={styles.input__container}>
+                      <InputRoll onChange={handleData} name={data.tirada} error={errors.tirada}/>
+                      <ArmorInput onChange={handleData} name={data.armadura} error={errors.armadura}/>
+                    </div>
+                    <div className={styles.input__container}>
+                      <BOInput onChange={handleData} name={data.bo}/>
+                      <BDInput onChange={handleData} name={data.bd}/>
+                      <OMInput onChange={handleData} name={data.om}/>
+                    </div>
+                    <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
+      
+                    {
+                      weapons.data && weapons.data.length > 0 ?
+                      <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/> : ''
+                    }
+                      <Fade in={true}>{weaponDistance()}</Fade>
+                    {
+                      weaponDistance.isWeaponDistance ?
+                      
+                      <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
+                    }
+                      <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
+                    {
+                      data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
+                      <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
+                    }
+      
+                    {
+                      selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
+                      ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
+                    }
+      
+      
+                    <StyledButton sx={{width:'100%'}} type='submit' variant="contained" color="error">Obtener resultado</StyledButton>
 
-        <div className={styles.col_container}>
-          <div className={styles.row_title}>
-            <h1 className={styles.title}>Rolemaster</h1>
-          </div>
-            <div className={styles.main_container}>
-              <div className={styles.form_container}>
-                <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
-                  
-                  <div className={styles.input__container}>
-                    <InputRoll onChange={handleData} name={data.tirada} error={errors.tirada}/>
-                    <ArmorInput onChange={handleData} name={data.armadura} error={errors.armadura}/>
-                  </div>
-                  <div className={styles.input__container}>
-                    <BOInput onChange={handleData} name={data.bo}/>
-                    <BDInput onChange={handleData} name={data.bd}/>
-                    <OMInput onChange={handleData} name={data.om}/>
-                  </div>
-                  <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
-                  
-                  {
-                    weapons.data && weapons.data.length > 0 ?
-                    <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/> : ''
-                  }
-                  
-                  {
-                    weaponDistance.isWeaponDistance ? 
-                    <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
-                  }
+                    <div className={styles.reset_button}>
+                      <Tooltip title='Volver a tirar'>
+                        <StyledIconButton type="button" variant="contained" onClick={resetData}><RestartAltIcon/></StyledIconButton>
+                      </Tooltip> 
+                    </div>
 
-                    <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
-                  {
-                    data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
-                    <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
-                  }
-          
-                  {
-                    selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
-                    ( selectedCategory.weapon === 'artes marciales' ? <LimitTypeInput type={'artes marciales'} onChange={handleData} name={data.limite}/> : '')
-                  }
-          
-          
-                  <Button sx={{width:'100%'}} type='submit' variant="contained" color="error">Obtener resultado</Button>
-
-                  <button type="button" onClick={resetData}>Volver a tirar</button>
-                </form>
+                  </form>
+                </div>
               </div>
+          </div>
+        </div>
+
+        <div className={styles.center_div}>
+            <div className={styles.result_title}>
+             { load ? <Spinner/> : <h2 className={styles.title}>{dataResults?.data?.points ? `${dataResults?.data?.points} P.V` : dataResults.result}</h2>} 
             </div>
         </div>
-      </div>
-       
-      <div ref={focusedRef} tabIndex={0} className={styles.col}>
-        <div className={styles.col_container}>
-          <div className={styles.row_title}>
-            { load ? <Spinner/> : 
-            <div style={{paddingBottom:'10px'}}> 
-              <h2 className={styles.title}>{dataResults?.data?.points ? `${dataResults?.data?.points} P.V` : dataResults.result}</h2>
-            </div>
+      
+        <div ref={focusedRef} tabIndex={0} className={styles.col}>
+          <div className={styles.secondcol_container}>
+      
+            <div className={styles.main_container}>
+              {
+                critical.opened && typeof(dataResults.result) != 'number' ?
+                  <Critical data={dataResults} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
+                  : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
               }
-          </div>
-
-          <div className={styles.main_container}>
-            {
-              critical.opened && typeof(dataResults.result) != 'number' ?
-                <Critical data={dataResults} criature={{type: data.criatura, weapon_type: data.weapon_type}}/>
-                : <div className={styles.critical_header}><h2 className={styles.title}>Esperando criticos...</h2></div>
-            }
+            </div>
           </div>
         </div>
       </div>
@@ -237,3 +245,14 @@ const Home = () => {
 }
 
 export default Home
+
+
+const StyledButton = styled(Button)(() => ({
+  backgroundColor: '#A40000',
+}));
+
+const StyledIconButton = styled(IconButton)(() => ({
+  backgroundColor: 'none',
+  transform: 'rotate(5deg)'
+}));
+

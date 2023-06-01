@@ -1,7 +1,8 @@
 
-.box{
-  background-color: rgb(86, 86, 86);
-  border-radius: 4px;
+.main{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -14,14 +15,26 @@
   flex-direction: column;
 }
 
+.form_container{
+  width: 100%;
+  height: 75%;
+  background: url('../../public/prueba.webp');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .form{
   display: flex;
-  width: 80%;
+  width: 72%;
   justify-content: center;
   flex-direction: column;
   margin: 0 auto;
 } 
+
 
 .select_file_btn {
   width: 100%;
@@ -48,12 +61,12 @@
 }
 
 .icons{
-  color: rgb(169, 169, 169);
-  stroke: rgb(18 64 63);
+  color: rgb(104, 77, 33);
+  stroke: rgb(14, 1, 1);
   stroke-width: 5px;
   font-size: 24px;    
+  transform: translate(0px, -6px)
   }
-  
 
 @media (min-width: 648px) and (max-width: 1024px){
 
@@ -66,8 +79,8 @@
 
 @media (min-width: 1024px) {
 
-  .form {
-    width: 20%;
+  .form_container{
+    width: 25%;
   }
   
 }

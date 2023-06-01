@@ -14,6 +14,8 @@
   height: 100%;
 }
 
+
+
 html,
 body {
   max-width: 100vw;
@@ -77,13 +79,29 @@ input[data-autocompleted] {
 }
 
 
-@media (min-width: 648px) {
+@media (min-width: 648px)  {
+
+  body {
+    background-image: url('../../public/background.jpg');
+    background-repeat: no-repeat;
+   }
+ 
+   
+ }
+
+ @media (min-width: 1024px) {
 
   body {
     background-image: url('../../public/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
    }
+
+   .main{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
  
    
  }
