@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import Head from "next/head";
+import { motion } from "framer-motion";
 import FormData from 'form-data';
 import Link from "next/link";
 import { Box, InputLabel, MenuItem, FormControl, Select, Button, Alert, InputAdornment} from '@mui/material'
@@ -9,6 +10,19 @@ import { GiCloudUpload } from "react-icons/gi";
 import Header from '@/components/partials/Header';
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
+const show = {
+  opacity: 1,
+  display: "block",
+};
+
+const hide = {
+  opacity: 0,
+  transitionEnd: {
+    display: "none"
+  }
+};
+
 
 
 function UploadFile() {
@@ -117,7 +131,10 @@ function UploadFile() {
                     </Box>
                   
                     <div className={styles.alert_container}>
-              {status.error ?  <Alert variant="filled" severity="error">{status.error}</Alert> : null}
+                      <motion.div transition={{ type: "spring"}} animate={status.error ? show : hide}>
+                        <Alert variant="filled" severity="error">{status.error}</Alert>
+                      </motion.div>
+              
               {status.mensaje ? <Alert variant="filled" severity="success">{status.mensaje}</Alert>: null}
                     </div>
                     <div className={styles.select_file_btn}>

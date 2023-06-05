@@ -1,4 +1,7 @@
-
+@font-face {
+  font-family: 'Berkshire';
+  src: url('../../public/fonts/BerkshireSwash-Regular.ttf');
+}
 
 .input__layout{
 margin: 5px 0px;
@@ -36,7 +39,7 @@ margin: 5px 0px;
 
 .description{
   text-align: justify;
-  font-family: cursive;
+  font-family: 'Berkshire';
   font-weight: bold;
   font-size: 15px;
   line-height: 18px;

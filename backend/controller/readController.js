@@ -23,7 +23,8 @@ module.exports = {
        return res.json({
         result: 'Pifiaste', 
         data: {
-          pifia: pifia.TSM_pifias[0],
+          pifia: pifia.TSM_pifias[0]?.pifia,
+          tipo: pifia.TSM_pifias[0]?.tipo,
           points: 'Pifiaste'
         }
       })
@@ -32,7 +33,16 @@ module.exports = {
       if(specialAttack){
         const response = await dataModule.specialAttack(weaponKey, armour, criatura)
         if(response && response[0].ataque?.length > 0){
-        return res.json({result: response[0].ataque[0], data:{ arma: response[0].arma, tipo: response[0].tipo}})
+        return res.json({
+          result: response[0].ataque[0], 
+          data:{ 
+            arma: response[0].arma, 
+            tipo: response[0].tipo,
+            points: response[0]?.criticals?.points,
+            severity: response[0].criticals?.severity, 
+            critical: response[0].criticals?.critical,
+          }
+        })
         } else {
           return res.json({result: 'No se encontraron resultados'})
         }
@@ -73,7 +83,6 @@ module.exports = {
     const attack = req.body.attack
     const criature = req.body.criature
     const weapon_type = req.body.weapon_type
-
 
 
     if (attack == "Pifiaste" || attack == 'F*') {

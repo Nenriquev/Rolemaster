@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Head from "next/head";
-import { Button, IconButton, Tooltip, Fade } from '@mui/material'
+import { Button, IconButton, Tooltip } from '@mui/material'
+import { motion } from "framer-motion";
 import { styled } from "@mui/material/styles";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import destructureCriticals from "../components/js/criticalsList"
@@ -20,6 +21,18 @@ import OMInput from "../components/OMInput";
 import Spinner from "@/components/partials/Spiner";
 import validator from "@/components/js/validator";
 import Header from "@/components/partials/Header";
+
+const show = {
+  opacity: 1,
+  display: "block",
+};
+
+const hide = {
+  opacity: 0,
+  transitionEnd: {
+    display: "none"
+  }
+};
 
 
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -183,22 +196,25 @@ const Home = () => {
                       <OMInput onChange={handleData} name={data.om}/>
                     </div>
                     <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
-      
-                    {
-                      weapons.data && weapons.data.length > 0 ?
-                      <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/> : ''
+
+                    { weapons.data && weapons.data.length > 0 ?
+                    <motion.div animate={weapons.data && weapons.data.length > 0 ? show : hide}>
+                      <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/>
+                    </motion.div> : ''
                     }
-                      <Fade in={true}>{weaponDistance()}</Fade>
-                    {
-                      weaponDistance.isWeaponDistance ?
+
+                    { weaponDistance.isWeaponDistance ?
+                    <motion.div animate={weaponDistance.isWeaponDistance  ? show : hide}>
+                      <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/>
+                    </motion.div> : ''
+                    }   
                       
-                      <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/> : ''
-                    }
                       <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
-                    {
-                      data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ?
-                      <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/> : ''
-                    }
+
+                    <motion.div animate={data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? show : hide}>
+                      <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/>
+                    </motion.div>
+                   
       
                     {
                       selectedCategory.weapon === 'animales' ? <LimitTypeInput type={'animales'} onChange={handleData} name={data.limite}/> :
@@ -222,7 +238,15 @@ const Home = () => {
 
         <div className={styles.center_div}>
             <div className={styles.result_title}>
-             { load ? <Spinner/> : <h2 className={styles.title}>{dataResults?.data?.points ? `${dataResults?.data?.points} P.V` : dataResults.result}</h2>} 
+             { 
+              load ? <Spinner/> : 
+              <h2 className={styles.title}>
+                {
+                dataResults?.data?.points ? `${dataResults?.data?.points} ${dataResults?.data?.points != 'Pifiaste' ? 'P.V' : ''}`: dataResults.result
+                }
+
+              </h2>
+              } 
             </div>
         </div>
       

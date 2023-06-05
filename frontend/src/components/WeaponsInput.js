@@ -32,7 +32,7 @@ const WeaponsInput = (props) => {
               }
               MenuProps={MenuProps}
             >
-              {props.weapons.map((item, index) => {
+              {props?.weapons?.map((item, index) => {
             return ( <MenuItem key={index} value={item.arma}>{item.arma}</MenuItem> )
             })}
             </Select>

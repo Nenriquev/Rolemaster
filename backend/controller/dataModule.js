@@ -92,7 +92,7 @@ module.exports = {
     }).catch(err => reject(err)))
   },
 
-  specialAttack: async (weaponKey, armour, criatura) => {
+  specialAttack: async (weaponKey, armour, criature) => {
 
     return new Promise((resolve, reject) => 
     Armas.aggregate([
@@ -119,14 +119,16 @@ module.exports = {
         }
       }
     ]).then(response => {
-      
-      if(response.length > 0 && response[0].tirada != null) {
-        const reduceSeverityOfCritical = criatura == 2 || criatura == 1;
-        const isRollNotEmpty = typeof(response[0]?.tirada[0]) != 'number' 
-        const isNotPfifia = response[0]?.tirada[0] != 'F*'
 
-        if(reduceSeverityOfCritical && isRollNotEmpty && isNotPfifia) {
-          const result = reduceCritical(criatura, response[0]?.tirada[0])
+      const responseData = response[0] || ''
+      
+      if(responseData) {
+        const reduceSeverityOfCritical = criature == 2 || criature == 1;
+        const destructureCritical = destructure(responseData.ataque[0]) 
+        responseData.criticals = destructureCritical 
+
+        if(reduceSeverityOfCritical) {
+          const result = reduceCritical(criature, destructureCritical)
           response[0].tirada[0] = result 
         }
       }
@@ -154,7 +156,6 @@ module.exports = {
     
     const criticalRoll = isNaN(roll) ? 0 : roll
     const result = []
-
 
     return new Promise((resolve, reject) => {
 

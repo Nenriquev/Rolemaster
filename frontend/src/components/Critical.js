@@ -1,4 +1,5 @@
   import { useState } from "react"
+  import { motion } from "framer-motion";
   import verify from "./Magicals"
   import styles from '../styles/home.module.css'
   import destructureCriticals from "./js/criticalsList"
@@ -10,20 +11,20 @@
 
 const Critical = (props) => {
 
-   
-
-
+  
   const [criticalData, setCriticalData] = useState([])
   const [description, setDescription] = useState('')
-  const attack = props?.data?.result
-  const type = props?.data?.data?.pifia?.tipo
+  const attack = props?.data?.result ?? ''
+  const severity = props?.data?.data?.severity ?? ''
+  const type = props?.data?.data?.tipo
   const weapon = props.data?.data?.arma
   const criature = props?.criature?.type
   const weapon_type = props?.criature?.weapon_type
-  const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('F') || attack.includes('G') || attack.includes('H') || attack.includes('I') || attack.includes('J'))
-  const IsvalidCritical3 = (criature !== 'GM' && criature !== 'LM') && (attack.includes('H') || attack.includes('I') || attack.includes('J'))
+  const IsvalidCritical2 = (criature !== 'GM' && criature !== 'LM') && ('FGHIJ'.includes(severity))
+  const IsvalidCritical3 = (criature !== 'GM' && criature !== 'LM') && ('HIJ'.includes(severity))
   const critical = destructureCriticals(attack, weapon)
 
+  
 
   const handleSubmitCritical = async (e) => {
     e.preventDefault()
@@ -51,7 +52,6 @@ const Critical = (props) => {
     setDescription({...description, [e.target.id]: message})
   }
 
-  
 
   const handleCriticalData =  (e) => {
     const { name, value } = e.target;

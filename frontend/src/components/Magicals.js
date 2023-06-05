@@ -2,8 +2,6 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 const verify = async (attack, id_target, weapon) => {
 
-
-  
   const secondaryCriticals = ['F','G','H','I','J']
   const result = []
   const formData = {}
@@ -36,6 +34,7 @@ const verify = async (attack, id_target, weapon) => {
  const response = await fetch(`${apiUrl}/api/magicals`, requestOptions)
     .catch(error => console.log('error', error));
   const message = await response.json()
+  
   return message
   
 

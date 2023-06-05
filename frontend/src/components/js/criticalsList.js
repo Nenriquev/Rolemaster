@@ -1,4 +1,4 @@
-import { GiElectric, GiFlamer, GiRaggedWound, GiBangingGavel, GiHighKick } from "react-icons/gi";
+import { GiElectric, GiFlamer, GiRaggedWound, GiBangingGavel, GiHighKick, GiGooeyImpact, GiSnowflake1 } from "react-icons/gi";
 
 const destructure = (attack) => {
   const result = [];
@@ -29,8 +29,8 @@ const criticals = {
 const icons = {
 	E: <GiElectric/>,
 	F: <GiFlamer/>,
-	H: '',
-	I: '',
+	H: <GiSnowflake1/>,
+	I: <GiGooeyImpact/>,
 	K: <GiBangingGavel/>,
 	P: '',
 	S: <GiRaggedWound/>,
@@ -70,11 +70,11 @@ const destructureCriticals = (attack, weapon) => {
 
 		const attacks = destructure(attack)	
 		const isSecundaryCritical = 'FGHIJ'.includes(attacks.severity)
-		let secundaryCriticals = ''
+		let secondaryCriticals = ''
 
 		for (const skill in specials) {
-			if (specials[skill][attacks.severity]) {
-			 secundaryCriticals = specials[skill][attacks.severity];
+			if (skill === weapon && isSecundaryCritical) {
+			 secondaryCriticals = specials[weapon][attacks.severity];
 			}
 		}
 
@@ -86,14 +86,14 @@ const destructureCriticals = (attack, weapon) => {
 				icon: icons[attacks.critical]
 			}, 
 			 critical2: {
-				type: criticals[secundaryCriticals[0]?.type] ?? null,
-				severity: secundaryCriticals[0]?.severity ?? null, 
-				icon: icons[secundaryCriticals[0]?.type] ?? null
+				type: criticals[secondaryCriticals[0]?.type] ?? null,
+				severity: secondaryCriticals[0]?.severity ?? null, 
+				icon: icons[secondaryCriticals[0]?.type] ?? null
 			},
 			critical3: {
-				type: criticals[secundaryCriticals[1]?.type] ?? null,
-				severity: secundaryCriticals[1]?.severity ?? null,
-				icon: icons[secundaryCriticals[1]?.type] ?? null
+				type: criticals[secondaryCriticals[1]?.type] ?? null,
+				severity: secondaryCriticals[1]?.severity ?? null,
+				icon: icons[secondaryCriticals[1]?.type] ?? null
 			} 
 		})
 

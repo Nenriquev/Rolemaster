@@ -66,7 +66,7 @@ const DistanceInput = (props) => {
               MenuProps={MenuProps}
             >
               
-              {props.weaponDistance.map((element, index) => {
+              {props?.weaponDistance?.map((element, index) => {
                 return (
                   <MenuItem
                     key={index}
@@ -81,7 +81,7 @@ const DistanceInput = (props) => {
           {load ? (
             <Spinner />
           ) : (
-            <h2 style={{ color: "rgb(164, 14, 14)", textAlign: "center" }}>
+            <h2 style={{ color: "rgb(164, 14, 14)", textAlign: "center", fontFamily:'Berkshire' }}>
               {distanceValues.bonus}
             </h2>
           )}
