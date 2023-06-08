@@ -197,21 +197,21 @@ const Home = () => {
                     </div>
                     <WeaponType onChange={handleCategory} selectedCategory={selectedCategory}/>
 
-                    { weapons.data && weapons.data.length > 0 ?
-                    <motion.div animate={weapons.data && weapons.data.length > 0 ? show : hide}>
+                    
+                    <motion.div initial={{ display: 'none'}} animate={weapons.data && weapons.data.length > 0 ? show : hide}>
                       <WeaponsInput weapons={weapons.data} onChange={handleData} name={data.arma} error={errors.arma}/>
-                    </motion.div> : ''
-                    }
+                    </motion.div> 
+                    
 
-                    { weaponDistance.isWeaponDistance ?
-                    <motion.div animate={weaponDistance.isWeaponDistance  ? show : hide}>
+                   
+                    <motion.div initial={{ display: 'none'}} animate={weaponDistance.isWeaponDistance  ? show : hide}>
                       <DistanceInput onChange={handleData} distance={data.distance} weapon={data.arma} weaponDistance={weaponDistance.weaponDistance}/>
-                    </motion.div> : ''
-                    }   
+                    </motion.div> 
+                    
                       
                       <CriatureInput onChange={handleData} name={data.criatura} category={selectedCategory}/>
 
-                    <motion.div animate={data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? show : hide}>
+                    <motion.div initial={{ display: 'none'}} animate={data.criatura && (data.criatura === 'GM' || data.criatura === 'G' || data.criatura === 'LM' || data.criatura === 'L') ? show : hide}>
                       <WeaponCriatureType onChange={handleData} name={data.weapon_type} category={selectedCategory}/>
                     </motion.div>
                    
